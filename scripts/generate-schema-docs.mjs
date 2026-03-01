@@ -194,7 +194,7 @@ function generateSchemaPage(schema, registryEntry, fqnToPage, referencedBy, conf
   lines.push('---');
   lines.push(`id: ${fqnToSlug(fqn)}`);
   lines.push(`title: ${schema.name}`);
-  lines.push(`description: ${escapeForMdx(schema.doc || '')}`);
+  lines.push(`description: "${escapeForMdx(schema.doc || '').replace(/"/g, '\\"')}"`);
   lines.push(`tags: [${schema.name}, v${version}, ${namespaceLabel(schema.namespace)}]`);
   lines.push('---');
   lines.push('');

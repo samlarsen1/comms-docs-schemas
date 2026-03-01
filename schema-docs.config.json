@@ -1,5 +1,5 @@
 {
-  "outputDir": "../my-docs-site/docs/schemas",
+  "outputDir": "../comms-docs-demo/website/docs/schemas",
   "schemaBaseUrl": "/schemas",
   "githubRepo": "https://github.com/samlarsen1/comms-docs-schemas",
   "githubBranch": "main"
