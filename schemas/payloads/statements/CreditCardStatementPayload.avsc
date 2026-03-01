@@ -1,0 +1,183 @@
+{
+  "type": "record",
+  "name": "CreditCardStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a credit card monthly statement. Aligned with UK Open Banking OBStatement2 and FCA consumer credit disclosure requirements.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the credit card Account."
+    },
+    {
+      "name": "maskedCardNumber",
+      "type": "string",
+      "doc": "Masked card number for display, e.g. '**** **** **** 1234'."
+    },
+    {
+      "name": "accountHolderName",
+      "type": "string",
+      "doc": "Name of the primary cardholder."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Credit card product name, e.g. 'Premier Rewards Credit Card'."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the billing period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the billing period."
+    },
+    {
+      "name": "paymentDueDate",
+      "type": "string",
+      "doc": "ISO 8601 date by which payment must be received to avoid late fees."
+    },
+    {
+      "name": "minimumPaymentAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Minimum payment amount required by the due date."
+    },
+    {
+      "name": "minimumPaymentDueDate",
+      "type": "string",
+      "doc": "ISO 8601 date by which the minimum payment must be received."
+    },
+    {
+      "name": "statementBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total balance owed as at the statement date."
+    },
+    {
+      "name": "previousBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Balance carried forward from the previous statement."
+    },
+    {
+      "name": "paymentsReceived",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total payments received during the billing period."
+    },
+    {
+      "name": "purchasesTotal",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total value of purchases in the billing period."
+    },
+    {
+      "name": "cashAdvancesTotal",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total cash advance amounts in the billing period."
+    },
+    {
+      "name": "balanceTransfersTotal",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total balance transfers in the billing period."
+    },
+    {
+      "name": "interestCharged",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total interest charges applied in the billing period."
+    },
+    {
+      "name": "purchaseInterestRate",
+      "type": "string",
+      "doc": "Annual purchase interest rate as a decimal string, e.g. '21.9'."
+    },
+    {
+      "name": "cashAdvanceInterestRate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Annual cash advance interest rate as a decimal string."
+    },
+    {
+      "name": "feesCharged",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total fees charged in the billing period, e.g. late payment fees."
+    },
+    {
+      "name": "creditLimit",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Current credit limit."
+    },
+    {
+      "name": "availableCredit",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Available credit remaining at statement date."
+    },
+    {
+      "name": "rewardsBalance",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "RewardsBalance",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "fields": [
+            {
+              "name": "programName",
+              "type": "string",
+              "doc": "Name of the rewards programme."
+            },
+            {
+              "name": "points",
+              "type": ["null", "long"],
+              "default": null,
+              "doc": "Points balance."
+            },
+            {
+              "name": "cashbackAmount",
+              "type": ["null", "com.bank.schemas.common.Money"],
+              "default": null,
+              "doc": "Cashback balance in monetary terms."
+            },
+            {
+              "name": "pointsEarnedThisPeriod",
+              "type": ["null", "long"],
+              "default": null,
+              "doc": "Points earned during this billing period."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Rewards or cashback programme balance."
+    },
+    {
+      "name": "transactions",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.payloads.statements.StatementTransaction"
+      },
+      "default": [],
+      "doc": "Transactions in this billing period."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery."
+    }
+  ]
+}

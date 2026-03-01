@@ -1,0 +1,112 @@
+{
+  "_comment": "Example: Payment received AUTO cascade. HIGH priority event. Customer has PAYMENT_NOTIFICATION preferences: preferredChannelOrder=[PUSH, IN_APP, EMAIL]. PUSH is available (active device token). Template exists and cascade succeeds on first attempt. This demonstrates the happy path for a real-time payment notification.",
+
+  "communicationEvent": {
+    "eventId": "evt-pmt-c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "eventType": "PAYMENT_RECEIVED",
+    "schemaVersion": "1.0.0",
+    "eventTimestamp": 1735750000000,
+    "correlationId": "fps-payment-FPS-2025010112345",
+    "causationId": "fps-inbound-settlement-FPS-2025010112345",
+    "idempotencyKey": "pmt-received-P-003-ACC-1234-TXN-9999",
+    "sourceSystem": {
+      "systemId": "PAYMENTS_GATEWAY",
+      "systemName": "Faster Payments Gateway",
+      "systemVersion": "v2.8.3",
+      "environment": "PRODUCTION",
+      "upstreamReference": "FPS-2025010112345"
+    },
+    "channel": "AUTO",
+    "priority": "HIGH",
+    "partyId": "P-003-DAVID-CHEN",
+    "accountId": "ACC-CURRENT-1234",
+    "productId": "PROD-STANDARD-CURRENT-ACCOUNT",
+    "productHoldingId": "HOLD-P003-CURRENT-1234",
+    "templateId": null,
+    "templateCode": null,
+    "scheduledFor": null,
+    "expiresAt": 1735836400000,
+    "payload": {
+      "com.bank.schemas.payloads.push.PaymentPushNotificationPayload": {
+        "notificationId": "notif-pmt-P003-ACC1234-TXN9999",
+        "partyId": "P-003-DAVID-CHEN",
+        "accountId": "ACC-CURRENT-1234",
+        "transactionId": "TXN-9999-FPS-2025010112345",
+        "notificationType": "PAYMENT_RECEIVED",
+        "amount": {
+          "amount": "2500.00",
+          "currency": "GBP"
+        },
+        "counterpartyName": "ACME CORP LTD",
+        "accountBalance": {
+          "amount": "3847.21",
+          "currency": "GBP"
+        },
+        "title": "Money received",
+        "body": "£2,500.00 received from ACME CORP LTD. Balance: £3,847.21.",
+        "deepLinkPath": "/accounts/ACC-CURRENT-1234/transactions/TXN-9999-FPS-2025010112345",
+        "imageUrl": null,
+        "isActionable": true,
+        "actions": [
+          {
+            "actionId": "VIEW_TRANSACTION",
+            "label": "View transaction",
+            "deepLinkPath": "/accounts/ACC-CURRENT-1234/transactions/TXN-9999-FPS-2025010112345"
+          },
+          {
+            "actionId": "DISMISS",
+            "label": "Dismiss",
+            "deepLinkPath": null
+          }
+        ],
+        "ttlSeconds": 86400,
+        "collapseKey": "PAYMENT_RECEIVED_ACC-CURRENT-1234"
+      }
+    },
+    "metadata": {
+      "fpsPaymentId": "FPS-2025010112345",
+      "schemeType": "FASTER_PAYMENTS",
+      "settlementCycleId": "FPS-CYCLE-2025010154"
+    }
+  },
+
+  "autoChannelDispatch": {
+    "dispatchId": "disp-pmt-d4e5f6a7-b8c9-0123-def0-234567890123",
+    "originalEventId": "evt-pmt-c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "correlationId": "fps-payment-FPS-2025010112345",
+    "partyId": "P-003-DAVID-CHEN",
+    "eventType": "PAYMENT_RECEIVED",
+    "payloadType": "com.bank.schemas.payloads.push.PaymentPushNotificationPayload",
+    "cascadeConfig": {
+      "stopOnFirstSuccess": true,
+      "respectCustomerPreferences": true,
+      "fallbackChannelOrder": ["PUSH", "IN_APP", "EMAIL"],
+      "requireTemplateMatch": true,
+      "maxCascadeDepth": 3,
+      "retryAttemptsPerChannel": 2,
+      "retryDelaySeconds": 5,
+      "skipOptedOutChannels": true
+    },
+
+    "_comment_preferences": "PAYMENT_RECEIVED preferences: preferredChannelOrder=[PUSH, IN_APP, EMAIL]. PUSH consent=true. Active device token found for iOS device. Template PAYMENT_RECEIVED_PUSH_EN_GB supports PaymentPushNotificationPayload.",
+    "resolvedChannelOrder": ["PUSH", "IN_APP", "EMAIL"],
+
+    "channelAttempts": [
+      {
+        "attemptSequence": 1,
+        "channel": "PUSH",
+        "templateId": "tmpl-push-payment-received-en-gb",
+        "templateCode": "PAYMENT_RECEIVED_PUSH_EN_GB",
+        "skipReason": null,
+        "attemptTimestamp": 1735750050000,
+        "status": "SENT",
+        "statusDetail": "Push notification accepted by APNs for iOS device token apns-tok-abc123. Delivery receipt pending.",
+        "responseEventId": "resp-pmt-push-sent-001"
+      }
+    ],
+    "finalStatus": "SENT",
+    "successfulChannel": "PUSH",
+    "dispatchStartTimestamp": 1735750045000,
+    "dispatchEndTimestamp": 1735750051000
+  }
+}

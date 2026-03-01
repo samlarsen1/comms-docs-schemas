@@ -1,0 +1,78 @@
+{
+  "type": "record",
+  "name": "Product",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A bank product definition. Aligned with UK Open Banking OBProduct2 and extended for investment, pension, and commercial products.",
+  "fields": [
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Unique identifier for this product definition."
+    },
+    {
+      "name": "productType",
+      "type": "com.bank.schemas.common.enums.ProductType",
+      "doc": "Classification of the product."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Product display name."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable product description."
+    },
+    {
+      "name": "marketSegment",
+      "type": {
+        "type": "enum",
+        "name": "MarketSegment",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["PERSONAL", "PRIVATE", "BUSINESS", "COMMERCIAL", "WEALTH"]
+      },
+      "default": "PERSONAL",
+      "doc": "Target market segment for this product."
+    },
+    {
+      "name": "primaryProductId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the parent product if this is a variant or sub-product."
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "Primary ISO 4217 currency code for this product."
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "default": true,
+      "doc": "Whether this product is currently available for new applications."
+    },
+    {
+      "name": "availableFrom",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date from which this product became or becomes available."
+    },
+    {
+      "name": "availableTo",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date after which this product is no longer available."
+    },
+    {
+      "name": "regulatoryProductId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Regulatory product reference, e.g. FCA product reference number."
+    }
+  ]
+}

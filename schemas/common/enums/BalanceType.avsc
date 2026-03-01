@@ -1,0 +1,24 @@
+{
+  "type": "enum",
+  "name": "BalanceType",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Balance classification aligned with UK Open Banking OBBalanceType1Code and ISO 20022 BalanceType12Code.",
+  "symbols": [
+    "CLOSING_AVAILABLE",
+    "CLOSING_BOOKED",
+    "CLOSING_CLEARED",
+    "EXPECTED",
+    "FORWARD_AVAILABLE",
+    "INFORMATION",
+    "INTERIM_AVAILABLE",
+    "INTERIM_BOOKED",
+    "INTERIM_CLEARED",
+    "OPENING_AVAILABLE",
+    "OPENING_BOOKED",
+    "OPENING_CLEARED",
+    "PREVIOUSLY_CLOSED_BOOKED"
+  ]
+}

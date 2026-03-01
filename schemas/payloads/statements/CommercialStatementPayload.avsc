@@ -1,0 +1,181 @@
+{
+  "type": "record",
+  "name": "CommercialStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a commercial or business banking account statement. Covers current accounts, commercial loans, and trade finance facilities. Aligned with UK Finance commercial banking standards and Basel III reporting requirements.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the commercial Account."
+    },
+    {
+      "name": "accountNumber",
+      "type": "string",
+      "doc": "Account number."
+    },
+    {
+      "name": "sortCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Sort code for UK accounts."
+    },
+    {
+      "name": "iban",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "IBAN if available."
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "doc": "Legal name of the business account holder."
+    },
+    {
+      "name": "companyRegistrationNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Companies House registration number."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Account product name, e.g. 'Business Current Account', 'Commercial Loan'."
+    },
+    {
+      "name": "productType",
+      "type": "com.bank.schemas.common.enums.ProductType",
+      "doc": "Commercial product classification."
+    },
+    {
+      "name": "relationshipManagerName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the assigned relationship manager."
+    },
+    {
+      "name": "relationshipManagerContact",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Direct contact number or email for the relationship manager."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the statement period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the statement period."
+    },
+    {
+      "name": "openingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Account balance at the start of the statement period."
+    },
+    {
+      "name": "closingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Account balance at the end of the statement period."
+    },
+    {
+      "name": "totalCredits",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total credit entries in the period."
+    },
+    {
+      "name": "totalDebits",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total debit entries in the period."
+    },
+    {
+      "name": "creditFacility",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "CommercialCreditFacility",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "doc": "Commercial credit facility details.",
+          "fields": [
+            {
+              "name": "facilityType",
+              "type": "string",
+              "doc": "Type of credit facility, e.g. 'OVERDRAFT', 'REVOLVING_CREDIT', 'TERM_LOAN', 'TRADE_FINANCE'."
+            },
+            {
+              "name": "facilityLimit",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Total approved facility limit."
+            },
+            {
+              "name": "utilisedAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Amount of facility currently in use."
+            },
+            {
+              "name": "availableAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Amount of facility currently available."
+            },
+            {
+              "name": "reviewDate",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 8601 date of next facility review."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Commercial credit facility details if applicable."
+    },
+    {
+      "name": "interestChargedThisPeriod",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total interest charged during the period."
+    },
+    {
+      "name": "interestRatePercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Interest rate applied as a decimal string."
+    },
+    {
+      "name": "feesChargedThisPeriod",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total fees charged during the period."
+    },
+    {
+      "name": "transactions",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.payloads.statements.StatementTransaction"
+      },
+      "default": [],
+      "doc": "Transactions during the statement period."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery."
+    }
+  ]
+}

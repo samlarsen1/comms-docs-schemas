@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "Workload",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A named workload belonging to a registered Client. Workloads represent distinct communication use cases or integration streams within a client application, e.g. 'MONTHLY_STATEMENTS', 'FRAUD_ALERTS', 'INTEREST_RATE_CHANGES'. Every CommunicationEvent must carry a workloadId to enable volume attribution, SLA tracking, and billing back to the originating workload.",
+  "fields": [
+    {
+      "name": "workloadId",
+      "type": "string",
+      "doc": "Bank-assigned UUID uniquely identifying this workload."
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "doc": "Reference to the Client that owns this workload."
+    },
+    {
+      "name": "workloadName",
+      "type": "string",
+      "doc": "Short human-readable name for this workload, e.g. 'Monthly Current Account Statements'."
+    },
+    {
+      "name": "workloadDescription",
+      "type": "string",
+      "doc": "Full description of the workload's purpose, expected communication types, and typical volume."
+    }
+  ]
+}

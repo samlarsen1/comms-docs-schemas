@@ -1,0 +1,255 @@
+{
+  "type": "record",
+  "name": "ChannelTemplate",
+  "namespace": "com.bank.schemas.reference",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Channel-specific configuration for a template. One ChannelTemplate record exists per supported channel per Template. Stores channel-specific rendering parameters such as email subject lines, SMS sender IDs, push notification titles, and document paper sizes.",
+  "fields": [
+    {
+      "name": "channelTemplateId",
+      "type": "string",
+      "doc": "Unique identifier for this channel-template binding."
+    },
+    {
+      "name": "templateId",
+      "type": "string",
+      "doc": "Reference to the parent Template."
+    },
+    {
+      "name": "channel",
+      "type": "com.bank.schemas.common.enums.ChannelType",
+      "doc": "The delivery channel this configuration applies to. Must not be AUTO."
+    },
+    {
+      "name": "isActive",
+      "type": "boolean",
+      "default": true,
+      "doc": "Whether this channel configuration is currently active. Inactive channels are skipped by the AUTO dispatcher."
+    },
+    {
+      "name": "emailConfig",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "EmailChannelConfig",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Configuration specific to email delivery.",
+          "fields": [
+            {
+              "name": "subjectLine",
+              "type": "string",
+              "doc": "Email subject line. May include Handlebars-style template variables, e.g. 'Your {{month}} statement is ready'."
+            },
+            {
+              "name": "preheaderText",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Preview text shown by email clients before the message is opened."
+            },
+            {
+              "name": "fromName",
+              "type": "string",
+              "doc": "Display name in the From field, e.g. 'First National Bank'."
+            },
+            {
+              "name": "fromAddress",
+              "type": "string",
+              "doc": "Sending email address, e.g. 'statements@bank.co.uk'."
+            },
+            {
+              "name": "replyToAddress",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Reply-To address if different from fromAddress."
+            },
+            {
+              "name": "hasAttachment",
+              "type": "boolean",
+              "default": false,
+              "doc": "Whether this template generates an attachment (e.g. a PDF statement)."
+            },
+            {
+              "name": "attachmentDescription",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Description of the attachment, e.g. 'PDF Statement'."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Email-specific configuration. Required when channel is EMAIL."
+    },
+    {
+      "name": "smsConfig",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "SmsChannelConfig",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Configuration specific to SMS delivery.",
+          "fields": [
+            {
+              "name": "senderId",
+              "type": "string",
+              "doc": "Alphanumeric sender ID shown to recipient, e.g. 'FirstNatl'. Max 11 characters."
+            },
+            {
+              "name": "maxLength",
+              "type": "int",
+              "default": 160,
+              "doc": "Maximum character length for the SMS body. Multi-part SMS will be split at this boundary."
+            },
+            {
+              "name": "allowMultiPart",
+              "type": "boolean",
+              "default": false,
+              "doc": "Whether multi-part (concatenated) SMS is permitted for this template."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "SMS-specific configuration. Required when channel is SMS."
+    },
+    {
+      "name": "pushConfig",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "PushChannelConfig",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Configuration specific to push notification delivery.",
+          "fields": [
+            {
+              "name": "defaultTitle",
+              "type": "string",
+              "doc": "Default notification title shown on the device lock screen."
+            },
+            {
+              "name": "sound",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Sound to play on delivery, e.g. 'default' or a custom sound name."
+            },
+            {
+              "name": "badge",
+              "type": ["null", "int"],
+              "default": null,
+              "doc": "App badge count to set on delivery. Null means do not change."
+            },
+            {
+              "name": "category",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "iOS notification category for actionable notifications."
+            },
+            {
+              "name": "deepLinkTemplate",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Deep link URI template for in-app navigation, e.g. 'bankapp://accounts/{{accountId}}/statement'."
+            },
+            {
+              "name": "collapseKey",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Collapse key to replace unread notifications of the same type on Android."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Push notification-specific configuration. Required when channel is PUSH."
+    },
+    {
+      "name": "documentConfig",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "DocumentChannelConfig",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Configuration for document generation (PDF statements, letters).",
+          "fields": [
+            {
+              "name": "paperSize",
+              "type": {
+                "type": "enum",
+                "name": "PaperSize",
+                "namespace": "com.bank.schemas.common.enums",
+                "symbols": ["A4", "A5", "LETTER", "LEGAL"]
+              },
+              "default": "A4",
+              "doc": "Paper size for printed documents."
+            },
+            {
+              "name": "isEncrypted",
+              "type": "boolean",
+              "default": false,
+              "doc": "Whether the generated document should be password-protected."
+            },
+            {
+              "name": "documentType",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Document classification for archival, e.g. 'STATEMENT', 'LETTER', 'NOTICE'."
+            },
+            {
+              "name": "archiveRetentionYears",
+              "type": ["null", "int"],
+              "default": null,
+              "doc": "Number of years this document type must be retained for regulatory compliance."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Document generation configuration. Required when channel is DOCUMENT."
+    },
+    {
+      "name": "postConfig",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "PostChannelConfig",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Configuration for physical postal delivery.",
+          "fields": [
+            {
+              "name": "printProvider",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Identifier for the print and mail provider."
+            },
+            {
+              "name": "mailClass",
+              "type": {
+                "type": "enum",
+                "name": "MailClass",
+                "namespace": "com.bank.schemas.common.enums",
+                "symbols": ["FIRST_CLASS", "SECOND_CLASS", "RECORDED", "SPECIAL_DELIVERY", "INTERNATIONAL"]
+              },
+              "default": "SECOND_CLASS",
+              "doc": "Royal Mail or equivalent postal class."
+            },
+            {
+              "name": "includeReplyEnvelope",
+              "type": "boolean",
+              "default": false,
+              "doc": "Whether a reply envelope should be included with the mailing."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Postal delivery configuration. Required when channel is POST."
+    }
+  ]
+}

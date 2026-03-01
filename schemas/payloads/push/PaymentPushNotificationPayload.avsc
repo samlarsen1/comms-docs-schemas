@@ -1,0 +1,147 @@
+{
+  "type": "record",
+  "name": "PaymentPushNotificationPayload",
+  "namespace": "com.bank.schemas.payloads.push",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a mobile push notification related to a payment event. Designed for brevity suitable for device lock-screen display. Supports real-time payment notifications aligned with UK Faster Payments Service and CHAPS notification best practices.",
+  "fields": [
+    {
+      "name": "notificationId",
+      "type": "string",
+      "doc": "Unique identifier for this push notification."
+    },
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Reference to the Party whose device(s) should receive this notification."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account the payment relates to."
+    },
+    {
+      "name": "transactionId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Transaction that triggered this notification."
+    },
+    {
+      "name": "notificationType",
+      "type": {
+        "type": "enum",
+        "name": "PaymentNotificationType",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "The type of payment event triggering this notification.",
+        "symbols": [
+          "PAYMENT_RECEIVED",
+          "PAYMENT_SENT",
+          "PAYMENT_FAILED",
+          "PAYMENT_PENDING",
+          "DIRECT_DEBIT_TAKEN",
+          "DIRECT_DEBIT_RETURNED",
+          "STANDING_ORDER_EXECUTED",
+          "PAYEE_ADDED",
+          "LOW_BALANCE_ALERT",
+          "BALANCE_UPDATE",
+          "CARD_PAYMENT",
+          "CONTACTLESS_PAYMENT",
+          "CASH_WITHDRAWAL",
+          "INTERNATIONAL_PAYMENT"
+        ]
+      },
+      "doc": "The type of payment event."
+    },
+    {
+      "name": "amount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Payment amount."
+    },
+    {
+      "name": "counterpartyName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the payee or payer, e.g. 'Amazon', 'John Smith'. Truncate to 30 characters for display."
+    },
+    {
+      "name": "accountBalance",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Account balance after the payment, if available."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "doc": "Push notification title displayed on the device. Max 50 characters. E.g. 'Payment received'."
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "doc": "Push notification body text displayed on the device. Max 150 characters. E.g. 'You received £250.00 from HMRC PAYE'."
+    },
+    {
+      "name": "deepLinkPath",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "In-app navigation path to open when the notification is tapped, e.g. '/accounts/{accountId}/transactions/{transactionId}'. The app prepends the scheme."
+    },
+    {
+      "name": "imageUrl",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URL of an image or merchant logo to display with rich push notifications."
+    },
+    {
+      "name": "isActionable",
+      "type": "boolean",
+      "default": false,
+      "doc": "Whether this notification includes quick-action buttons."
+    },
+    {
+      "name": "actions",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "NotificationAction",
+          "namespace": "com.bank.schemas.payloads.push",
+          "doc": "A quick-action button on a rich push notification.",
+          "fields": [
+            {
+              "name": "actionId",
+              "type": "string",
+              "doc": "Identifier for the action, handled by the app."
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "doc": "Button label text, e.g. 'View transaction'."
+            },
+            {
+              "name": "deepLinkPath",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Deep link path triggered by this action."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Quick-action buttons for rich push notifications."
+    },
+    {
+      "name": "ttlSeconds",
+      "type": "int",
+      "default": 86400,
+      "doc": "Time-to-live in seconds. Notifications older than this are discarded by the push gateway if undelivered. Default 24 hours."
+    },
+    {
+      "name": "collapseKey",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Collapse key to replace unread notifications of the same type. E.g. 'LOW_BALANCE_{accountId}'."
+    }
+  ]
+}

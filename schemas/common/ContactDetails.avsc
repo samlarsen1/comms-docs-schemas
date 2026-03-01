@@ -1,0 +1,46 @@
+{
+  "type": "record",
+  "name": "ContactDetails",
+  "namespace": "com.bank.schemas.common",
+  "version": "1.0.0",
+  "compatibility": "FULL",
+  "status": "ACTIVE",
+  "doc": "Contact information for a party. Aligned with ISO 20022 ContactDetails2. Phone numbers should use E.164 format (e.g. '+447911123456').",
+  "fields": [
+    {
+      "name": "emailAddress",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Primary email address for electronic communications."
+    },
+    {
+      "name": "mobileNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Mobile phone number in E.164 format, used for SMS and push notifications."
+    },
+    {
+      "name": "homePhoneNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Home landline phone number in E.164 format."
+    },
+    {
+      "name": "workPhoneNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Work phone number in E.164 format."
+    },
+    {
+      "name": "preferredContactMethod",
+      "type": {
+        "type": "enum",
+        "name": "PreferredContactMethod",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["EMAIL", "MOBILE", "HOME_PHONE", "WORK_PHONE", "POST"]
+      },
+      "default": "EMAIL",
+      "doc": "Customer's preferred method of direct contact."
+    }
+  ]
+}

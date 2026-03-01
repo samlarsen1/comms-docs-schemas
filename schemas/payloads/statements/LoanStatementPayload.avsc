@@ -1,0 +1,180 @@
+{
+  "type": "record",
+  "name": "LoanStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a personal or commercial loan statement. Aligned with UK Open Banking OBReadStatement2 consumer credit rules and FCA consumer credit disclosure requirements under CONC.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the loan Account."
+    },
+    {
+      "name": "loanReference",
+      "type": "string",
+      "doc": "Bank's loan reference number."
+    },
+    {
+      "name": "accountHolderName",
+      "type": "string",
+      "doc": "Name of the primary loan holder."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Loan product name, e.g. 'Personal Loan', 'Home Improvement Loan'."
+    },
+    {
+      "name": "loanPurpose",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Stated purpose of the loan, e.g. 'Debt Consolidation', 'Vehicle Purchase'."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the statement period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the statement period."
+    },
+    {
+      "name": "originalLoanAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Original loan amount drawn down."
+    },
+    {
+      "name": "outstandingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Outstanding loan balance at end of period."
+    },
+    {
+      "name": "annualInterestRatePercent",
+      "type": "string",
+      "doc": "Annual interest rate as a decimal string."
+    },
+    {
+      "name": "apr",
+      "type": "string",
+      "doc": "Annual Percentage Rate including all costs as a decimal string."
+    },
+    {
+      "name": "interestRateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "Structure of the interest rate (typically FIXED for personal loans)."
+    },
+    {
+      "name": "monthlyPaymentAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Monthly instalment amount."
+    },
+    {
+      "name": "nextPaymentDate",
+      "type": "string",
+      "doc": "ISO 8601 date of the next scheduled payment."
+    },
+    {
+      "name": "nextPaymentAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Amount due on the next payment date."
+    },
+    {
+      "name": "remainingTermMonths",
+      "type": "int",
+      "doc": "Number of monthly instalments remaining."
+    },
+    {
+      "name": "totalPaidToDate",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total amount paid since loan inception."
+    },
+    {
+      "name": "totalInterestPaidToDate",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total interest paid since loan inception."
+    },
+    {
+      "name": "interestChargedThisPeriod",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Interest charged during this statement period."
+    },
+    {
+      "name": "capitalRepaidThisPeriod",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Capital repaid during this statement period."
+    },
+    {
+      "name": "feesChargedThisPeriod",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Fees charged during the period, e.g. late payment fees."
+    },
+    {
+      "name": "settlementFigure",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Amount required to settle the loan in full today, including any early repayment charge."
+    },
+    {
+      "name": "earlyRepaymentCharge",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Early repayment charge applicable if loan is settled today."
+    },
+    {
+      "name": "arrears",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "ArrearsDetails",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "fields": [
+            {
+              "name": "arrearsAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Total amount in arrears."
+            },
+            {
+              "name": "monthsInArrears",
+              "type": "int",
+              "doc": "Number of months the account is in arrears."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Arrears information if the account is in arrears."
+    },
+    {
+      "name": "transactions",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.payloads.statements.StatementTransaction"
+      },
+      "default": [],
+      "doc": "Transactions during the statement period."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery."
+    }
+  ]
+}

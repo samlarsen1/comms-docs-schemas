@@ -1,0 +1,72 @@
+{
+  "type": "record",
+  "name": "ProductHolding",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Links a party to a product and account, capturing the role of the party in that relationship. Inspired by Brazil Open Finance Contas and UK Open Banking account-party association.",
+  "fields": [
+    {
+      "name": "holdingId",
+      "type": "string",
+      "doc": "Unique identifier for this product holding relationship."
+    },
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Reference to the Party who holds this product."
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Reference to the Product definition."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account associated with this holding."
+    },
+    {
+      "name": "role",
+      "type": {
+        "type": "enum",
+        "name": "HoldingRole",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "The role of the party in relation to this product holding.",
+        "symbols": [
+          "PRIMARY_HOLDER",
+          "JOINT_HOLDER",
+          "AUTHORISED_SIGNATORY",
+          "BENEFICIARY",
+          "GUARANTOR",
+          "POWER_OF_ATTORNEY",
+          "EXECUTOR",
+          "TRUSTEE"
+        ]
+      },
+      "doc": "The party's role in this product relationship."
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "HoldingStatus",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["ACTIVE", "PENDING", "CANCELLED", "LAPSED", "TRANSFERRED"]
+      },
+      "doc": "Current lifecycle status of this holding."
+    },
+    {
+      "name": "startDate",
+      "type": "string",
+      "doc": "ISO 8601 date when this holding relationship began."
+    },
+    {
+      "name": "endDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date when this holding relationship ended. Null if still active."
+    }
+  ]
+}

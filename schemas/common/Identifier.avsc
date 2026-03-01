@@ -1,0 +1,64 @@
+{
+  "type": "record",
+  "name": "Identifier",
+  "namespace": "com.bank.schemas.common",
+  "version": "1.0.0",
+  "compatibility": "FULL",
+  "status": "ACTIVE",
+  "doc": "A formal identifier for a party or entity. Supports government IDs, company numbers, and financial identifiers aligned with ISO 20022 GenericIdentification.",
+  "fields": [
+    {
+      "name": "identifierType",
+      "type": {
+        "type": "enum",
+        "name": "IdentifierType",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "Type of identifier document or code.",
+        "symbols": [
+          "NATIONAL_INSURANCE",
+          "PASSPORT",
+          "DRIVING_LICENCE",
+          "NATIONAL_ID",
+          "COMPANY_REGISTRATION_NUMBER",
+          "VAT_NUMBER",
+          "TAX_IDENTIFICATION_NUMBER",
+          "LEI",
+          "BIC",
+          "SORT_CODE",
+          "IBAN",
+          "INTERNAL_PARTY_ID"
+        ]
+      },
+      "doc": "The type of this identifier."
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "doc": "The identifier value."
+    },
+    {
+      "name": "issuer",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The issuing authority or organisation, e.g. 'DVLA', 'Companies House'."
+    },
+    {
+      "name": "issuedDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Date the identifier was issued. ISO 8601 date format: YYYY-MM-DD."
+    },
+    {
+      "name": "expiryDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Date the identifier expires. ISO 8601 date format: YYYY-MM-DD."
+    },
+    {
+      "name": "countryOfIssue",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 3166-1 alpha-2 country code of issuing authority."
+    }
+  ]
+}

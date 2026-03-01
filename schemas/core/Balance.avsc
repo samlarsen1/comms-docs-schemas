@@ -1,0 +1,80 @@
+{
+  "type": "record",
+  "name": "Balance",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Account balance at a point in time. Aligned with UK Open Banking OBReadBalance1 and ISO 20022 CashBalance8.",
+  "fields": [
+    {
+      "name": "balanceId",
+      "type": "string",
+      "doc": "Unique identifier for this balance record."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account this balance belongs to."
+    },
+    {
+      "name": "balanceType",
+      "type": "com.bank.schemas.common.enums.BalanceType",
+      "doc": "The type of balance being reported."
+    },
+    {
+      "name": "amount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "The balance amount."
+    },
+    {
+      "name": "creditDebitIndicator",
+      "type": "com.bank.schemas.common.enums.CreditDebitIndicator",
+      "doc": "Whether the balance is a credit (in-credit) or debit (overdrawn) position."
+    },
+    {
+      "name": "dateTime",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp at which this balance was calculated or reported."
+    },
+    {
+      "name": "creditLine",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "CreditLine",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Credit facility or limit associated with the account, such as an overdraft.",
+          "fields": [
+            {
+              "name": "included",
+              "type": "boolean",
+              "doc": "Whether this credit line amount is included in the balance figure."
+            },
+            {
+              "name": "type",
+              "type": {
+                "type": "enum",
+                "name": "CreditLineType",
+                "namespace": "com.bank.schemas.common.enums",
+                "symbols": ["AVAILABLE", "CREDIT", "EMERGENCY", "PRE_AGREED", "TEMPORARY"]
+              },
+              "doc": "Type of credit facility."
+            },
+            {
+              "name": "amount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "The credit limit amount."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Associated credit lines or overdraft facilities."
+    }
+  ]
+}

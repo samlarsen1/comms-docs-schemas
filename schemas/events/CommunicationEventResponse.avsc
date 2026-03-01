@@ -1,0 +1,111 @@
+{
+  "type": "record",
+  "name": "CommunicationEventResponse",
+  "namespace": "com.bank.schemas.events",
+  "version": "2.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Status update event produced by the communication dispatch service after attempting delivery of a CommunicationEvent. Published to response topics for consuming systems to track delivery outcomes. One response per channel attempt.",
+  "fields": [
+    {
+      "name": "responseId",
+      "type": "string",
+      "doc": "Unique identifier for this response event."
+    },
+    {
+      "name": "originalEventId",
+      "type": "string",
+      "doc": "The eventId of the CommunicationEvent this response corresponds to."
+    },
+    {
+      "name": "correlationId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Propagated correlation ID from the original event."
+    },
+    {
+      "name": "workloadId",
+      "type": "string",
+      "doc": "Reference to the Workload from the original CommunicationEvent. Propagated to the response to enable workload-level delivery tracking and SLA reporting."
+    },
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Reference to the Party this communication was addressed to."
+    },
+    {
+      "name": "accountId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Account the original communication related to."
+    },
+    {
+      "name": "eventType",
+      "type": "com.bank.schemas.common.enums.CommunicationEventType",
+      "doc": "Event type from the original CommunicationEvent."
+    },
+    {
+      "name": "channel",
+      "type": "com.bank.schemas.common.enums.ChannelType",
+      "doc": "The actual channel on which delivery was attempted. If original event was AUTO, this shows the resolved channel."
+    },
+    {
+      "name": "status",
+      "type": "com.bank.schemas.common.enums.MessageStatus",
+      "doc": "Current delivery status."
+    },
+    {
+      "name": "statusTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this status was recorded."
+    },
+    {
+      "name": "statusDetail",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable detail of the status, e.g. error message, bounce reason, or gateway response code."
+    },
+    {
+      "name": "templateId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Template UUID used for this delivery attempt."
+    },
+    {
+      "name": "templateCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Template code used for this delivery attempt."
+    },
+    {
+      "name": "deliveryMetadata",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Channel-specific delivery metadata from the gateway, e.g. email message-ID, SMS gateway receipt ID, push notification token."
+    },
+    {
+      "name": "retryCount",
+      "type": "int",
+      "default": 0,
+      "doc": "Number of delivery attempts made."
+    },
+    {
+      "name": "nextRetryAt",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      ],
+      "default": null,
+      "doc": "UTC timestamp of the next scheduled retry attempt, if applicable."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "Money",
+  "namespace": "com.bank.schemas.common",
+  "version": "1.0.1",
+  "compatibility": "FULL",
+  "status": "ACTIVE",
+  "doc": "Monetary amount with ISO 4217 currency code. Amount is represented as a string to avoid floating point precision issues. Aligned with ISO 20022 ActiveOrHistoricCurrencyAndAmount.",
+  "fields": [
+    {
+      "name": "amount",
+      "type": "string",
+      "doc": "Decimal monetary amount as a string, e.g. '1234.56'. Negative values use a leading minus, e.g. '-50.00'."
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "ISO 4217 three-letter currency code, e.g. 'GBP', 'EUR', 'USD'."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "type": "record",
+  "name": "FxFees",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Foreign exchange fee definitions for a product. Covers exchange rate markup, cross-border transaction fees, and ATM withdrawal charges. Relevant for current accounts, credit cards, and FX accounts.",
+  "fields": [
+    {
+      "name": "fxFeeId",
+      "type": "string",
+      "doc": "Unique identifier for this FX fee definition."
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Reference to the Product this FX fee applies to."
+    },
+    {
+      "name": "fxFeeType",
+      "type": {
+        "type": "enum",
+        "name": "FxFeeType",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "Classification of foreign exchange fee.",
+        "symbols": [
+          "EXCHANGE_RATE_MARKUP",
+          "NON_STERLING_TRANSACTION_FEE",
+          "NON_STERLING_CASH_WITHDRAWAL_FEE",
+          "CROSS_BORDER_PAYMENT_FEE",
+          "FOREIGN_ATM_FEE",
+          "SWIFT_FEE",
+          "CORRESPONDENT_BANK_FEE",
+          "CURRENCY_CONVERSION_FEE"
+        ]
+      },
+      "doc": "Type of foreign exchange fee."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable description of this FX fee."
+    },
+    {
+      "name": "exchangeRateMarkupPercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Percentage added to the interbank/Visa/Mastercard rate, e.g. '2.75'."
+    },
+    {
+      "name": "transactionFeePercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Percentage of the transaction value charged as a fee, e.g. '1.5'."
+    },
+    {
+      "name": "transactionFeeFixedAmount",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Fixed fee applied per transaction."
+    },
+    {
+      "name": "minimumFee",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Minimum fee charged per transaction."
+    },
+    {
+      "name": "maximumFee",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Maximum fee charged per transaction."
+    },
+    {
+      "name": "applicableCurrencies",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "ISO 4217 currency codes to which this fee applies. Empty array means all non-domestic currencies."
+    },
+    {
+      "name": "waivableWithProduct",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Product ID of a companion product that waives this fee, e.g. a premium current account."
+    },
+    {
+      "name": "effectiveFrom",
+      "type": "string",
+      "doc": "ISO 8601 date from which this FX fee definition is effective."
+    },
+    {
+      "name": "effectiveTo",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date after which this FX fee definition is no longer effective. Null if open-ended."
+    }
+  ]
+}

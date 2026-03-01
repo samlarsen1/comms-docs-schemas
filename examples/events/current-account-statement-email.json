@@ -1,0 +1,158 @@
+{
+  "_comment": "Example: Current Account Statement delivered directly via EMAIL channel (not AUTO). Source system specifies the channel explicitly. Template STMT_CURRENT_ACCOUNT_EMAIL_EN_GB is resolved by the dispatcher.",
+
+  "eventId": "evt-stmt-e5f6a7b8-c9d0-1234-ef01-345678901234",
+  "eventType": "STATEMENT",
+  "schemaVersion": "1.0.0",
+  "eventTimestamp": 1735603200000,
+  "correlationId": "stmt-batch-DEC-2024-RUN-001",
+  "causationId": "stmt-generation-job-DEC-2024",
+  "idempotencyKey": "stmt-ACC-CURRENT-1234-DEC-2024",
+  "sourceSystem": {
+    "systemId": "STATEMENT_ENGINE",
+    "systemName": "Statement Generation Engine",
+    "systemVersion": "v1.5.2",
+    "environment": "PRODUCTION",
+    "upstreamReference": "STMT_BATCH_DEC_2024_00001234"
+  },
+  "channel": "EMAIL",
+  "priority": "NORMAL",
+  "partyId": "P-003-DAVID-CHEN",
+  "accountId": "ACC-CURRENT-1234",
+  "productId": "PROD-STANDARD-CURRENT-ACCOUNT",
+  "productHoldingId": "HOLD-P003-CURRENT-1234",
+  "templateId": null,
+  "templateCode": "STMT_CURRENT_ACCOUNT_EMAIL_EN_GB",
+  "scheduledFor": 1735689600000,
+  "expiresAt": 1736294400000,
+  "payload": {
+    "com.bank.schemas.payloads.statements.CurrentAccountStatementPayload": {
+      "statementId": "STMT-ACC1234-DEC2024",
+      "accountId": "ACC-CURRENT-1234",
+      "sortCode": "123456",
+      "accountNumber": "12345678",
+      "iban": "GB29 NWBK 6016 1331 9268 19",
+      "accountHolderName": "Mr David Chen",
+      "productName": "Standard Current Account",
+      "statementDate": "2024-12-31",
+      "periodStartDate": "2024-12-01",
+      "periodEndDate": "2024-12-31",
+      "openingBalance": {
+        "amount": "1842.50",
+        "currency": "GBP"
+      },
+      "closingBalance": {
+        "amount": "3847.21",
+        "currency": "GBP"
+      },
+      "totalCredits": {
+        "amount": "4200.00",
+        "currency": "GBP"
+      },
+      "totalDebits": {
+        "amount": "2195.29",
+        "currency": "GBP"
+      },
+      "availableBalance": {
+        "amount": "4847.21",
+        "currency": "GBP"
+      },
+      "arrangedOverdraftLimit": {
+        "amount": "1000.00",
+        "currency": "GBP"
+      },
+      "arrangedOverdraftUsed": null,
+      "unarrangedOverdraftUsed": null,
+      "interestCharged": null,
+      "interestEarned": {
+        "amount": "1.50",
+        "currency": "GBP"
+      },
+      "feesCharged": null,
+      "transactions": [
+        {
+          "transactionId": "TXN-1001",
+          "bookingDate": "2024-12-01",
+          "valueDate": null,
+          "description": "SALARY - ACME CORP LTD",
+          "creditDebitIndicator": "CREDIT",
+          "amount": {"amount": "3500.00", "currency": "GBP"},
+          "runningBalance": {"amount": "5342.50", "currency": "GBP"},
+          "reference": "DEC SALARY",
+          "category": "INCOME"
+        },
+        {
+          "transactionId": "TXN-1002",
+          "bookingDate": "2024-12-02",
+          "valueDate": null,
+          "description": "TESCO STORES 2468",
+          "creditDebitIndicator": "DEBIT",
+          "amount": {"amount": "87.43", "currency": "GBP"},
+          "runningBalance": {"amount": "5255.07", "currency": "GBP"},
+          "reference": null,
+          "category": "GROCERIES"
+        },
+        {
+          "transactionId": "TXN-1003",
+          "bookingDate": "2024-12-03",
+          "valueDate": null,
+          "description": "MORTGAGE DIRECT DEBIT",
+          "creditDebitIndicator": "DEBIT",
+          "amount": {"amount": "1456.78", "currency": "GBP"},
+          "runningBalance": {"amount": "3798.29", "currency": "GBP"},
+          "reference": "MORTGAGE-REF-9876",
+          "category": "HOUSING"
+        },
+        {
+          "transactionId": "TXN-1004",
+          "bookingDate": "2024-12-15",
+          "valueDate": null,
+          "description": "AMAZON.CO.UK",
+          "creditDebitIndicator": "DEBIT",
+          "amount": {"amount": "249.99", "currency": "GBP"},
+          "runningBalance": {"amount": "3548.30", "currency": "GBP"},
+          "reference": null,
+          "category": "SHOPPING"
+        },
+        {
+          "transactionId": "TXN-1005",
+          "bookingDate": "2024-12-20",
+          "valueDate": null,
+          "description": "FPS IN - HMRC PAYE",
+          "creditDebitIndicator": "CREDIT",
+          "amount": {"amount": "700.00", "currency": "GBP"},
+          "runningBalance": {"amount": "4248.30", "currency": "GBP"},
+          "reference": "TAX REBATE",
+          "category": "INCOME"
+        },
+        {
+          "transactionId": "TXN-1006",
+          "bookingDate": "2024-12-28",
+          "valueDate": null,
+          "description": "COUNCIL TAX - OXFORD CC",
+          "creditDebitIndicator": "DEBIT",
+          "amount": {"amount": "156.09", "currency": "GBP"},
+          "runningBalance": {"amount": "4092.21", "currency": "GBP"},
+          "reference": null,
+          "category": "BILLS"
+        },
+        {
+          "transactionId": "TXN-1007",
+          "bookingDate": "2024-12-31",
+          "valueDate": null,
+          "description": "INTEREST CREDIT",
+          "creditDebitIndicator": "CREDIT",
+          "amount": {"amount": "1.50", "currency": "GBP"},
+          "runningBalance": {"amount": "3847.21", "currency": "GBP"},
+          "reference": "DEC 2024 INTEREST",
+          "category": "INTEREST"
+        }
+      ],
+      "correspondenceAddress": null
+    }
+  },
+  "metadata": {
+    "statementGenerationBatch": "STMT_BATCH_DEC_2024",
+    "paperless": "true"
+  }
+}

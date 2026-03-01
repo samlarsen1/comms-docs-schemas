@@ -1,0 +1,136 @@
+{
+  "type": "record",
+  "name": "Template",
+  "namespace": "com.bank.schemas.reference",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A communication template definition describing a reusable content structure for a specific event type and channel. Templates declare which channels they support and which payload fields they require, enabling the AUTO channel to discover applicable templates at dispatch time.",
+  "fields": [
+    {
+      "name": "templateId",
+      "type": "string",
+      "doc": "Unique UUID identifier for this template."
+    },
+    {
+      "name": "templateCode",
+      "type": "string",
+      "doc": "Human-readable stable code for referencing this template, e.g. 'STMT_CURRENT_ACCOUNT_EMAIL_EN_GB'. Must be unique and URL-safe."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Display name of this template."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable description of this template's purpose."
+    },
+    {
+      "name": "version",
+      "type": "string",
+      "doc": "Semantic version of this template, e.g. '1.0.0'. Increment major version for breaking payload changes."
+    },
+    {
+      "name": "status",
+      "type": "com.bank.schemas.common.enums.TemplateStatus",
+      "doc": "Lifecycle status of this template."
+    },
+    {
+      "name": "eventType",
+      "type": "com.bank.schemas.common.enums.CommunicationEventType",
+      "doc": "The communication event type this template is designed for."
+    },
+    {
+      "name": "supportedChannels",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.common.enums.ChannelType"
+      },
+      "doc": "Channels this template is available for. The AUTO channel dispatcher uses this to identify which channels a payload can be delivered via. A template listed here must have a corresponding ChannelTemplate record for each supported channel."
+    },
+    {
+      "name": "supportedPayloadTypes",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "Fully qualified Avro schema names of payload types this template can render, e.g. ['com.bank.schemas.payloads.statements.CurrentAccountStatementPayload']."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "default": "en-GB",
+      "doc": "BCP 47 language tag for the template language, e.g. 'en-GB', 'cy-GB', 'pl-PL'."
+    },
+    {
+      "name": "requiredPayloadFields",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "List of payload field names that must be present for this template to render. Used by AUTO dispatcher to validate payload compatibility before attempting delivery."
+    },
+    {
+      "name": "productTypes",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.common.enums.ProductType"
+      },
+      "default": [],
+      "doc": "Product types this template applies to. Empty array means applicable to all product types."
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Arbitrary key-value metadata for template management, e.g. author, design system reference, legal approval ID."
+    },
+    {
+      "name": "contentSystemRef",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the template content in the content management system (e.g. CMS template ID, S3 key)."
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this template was created."
+    },
+    {
+      "name": "updatedAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this template was last updated."
+    },
+    {
+      "name": "approvedAt",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      ],
+      "default": null,
+      "doc": "UTC timestamp when this template received compliance/legal approval."
+    },
+    {
+      "name": "approvedBy",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Identifier of the approver (user ID or team name)."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "enum",
+  "name": "TransactionStatus",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Transaction status aligned with UK Open Banking OBEntryStatus1Code and ISO 20022 TransactionIndividualStatus1Code.",
+  "symbols": [
+    "BOOKED",
+    "PENDING",
+    "INFORMATION",
+    "FUTURE_DATED",
+    "REJECTED",
+    "CANCELLED",
+    "REVERSED"
+  ]
+}

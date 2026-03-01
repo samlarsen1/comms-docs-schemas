@@ -1,0 +1,15 @@
+{
+  "type": "enum",
+  "name": "MessagePriority",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Priority level influencing queuing and delivery speed for a communication event.",
+  "symbols": [
+    "LOW",
+    "NORMAL",
+    "HIGH",
+    "URGENT"
+  ]
+}

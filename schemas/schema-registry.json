@@ -1,0 +1,906 @@
+{
+  "registryVersion": "1.0.0",
+  "lastUpdated": "2026-03-01",
+  "schemas": {
+    "com.bank.schemas.common.enums.AccountStatus": {
+      "file": "schemas/common/enums/AccountStatus.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.BalanceType": {
+      "file": "schemas/common/enums/BalanceType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.ChannelType": {
+      "file": "schemas/common/enums/ChannelType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.CommunicationEventType": {
+      "file": "schemas/common/enums/CommunicationEventType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.CreditDebitIndicator": {
+      "file": "schemas/common/enums/CreditDebitIndicator.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.FeeType": {
+      "file": "schemas/common/enums/FeeType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.InterestRateType": {
+      "file": "schemas/common/enums/InterestRateType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.MessagePriority": {
+      "file": "schemas/common/enums/MessagePriority.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.MessageStatus": {
+      "file": "schemas/common/enums/MessageStatus.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.PartyType": {
+      "file": "schemas/common/enums/PartyType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.ProductType": {
+      "file": "schemas/common/enums/ProductType.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.StatementFrequency": {
+      "file": "schemas/common/enums/StatementFrequency.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.TemplateStatus": {
+      "file": "schemas/common/enums/TemplateStatus.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.enums.TransactionStatus": {
+      "file": "schemas/common/enums/TransactionStatus.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.Money": {
+      "file": "schemas/common/Money.avsc",
+      "currentVersion": "1.0.1",
+      "compatibility": "FULL",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        },
+        {
+          "version": "1.0.1",
+          "date": "2026-03-01",
+          "changeType": "PATCH",
+          "breaking": false,
+          "changes": [
+            "Improved doc string clarity"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.Address": {
+      "file": "schemas/common/Address.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "FULL",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.ContactDetails": {
+      "file": "schemas/common/ContactDetails.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "FULL",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.common.Identifier": {
+      "file": "schemas/common/Identifier.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "FULL",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Party": {
+      "file": "schemas/core/Party.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Account": {
+      "file": "schemas/core/Account.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Balance": {
+      "file": "schemas/core/Balance.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Transaction": {
+      "file": "schemas/core/Transaction.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Fees": {
+      "file": "schemas/core/Fees.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.FxFees": {
+      "file": "schemas/core/FxFees.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.InterestRate": {
+      "file": "schemas/core/InterestRate.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.InterestCharge": {
+      "file": "schemas/core/InterestCharge.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Product": {
+      "file": "schemas/core/Product.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.ProductHolding": {
+      "file": "schemas/core/ProductHolding.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Client": {
+      "file": "schemas/core/Client.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.core.Workload": {
+      "file": "schemas/core/Workload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.reference.Template": {
+      "file": "schemas/reference/Template.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.reference.ChannelTemplate": {
+      "file": "schemas/reference/ChannelTemplate.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.reference.CommunicationPreferences": {
+      "file": "schemas/reference/CommunicationPreferences.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.events.CommunicationEvent": {
+      "file": "schemas/events/CommunicationEvent.avsc",
+      "currentVersion": "3.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        },
+        {
+          "version": "2.0.0",
+          "date": "2026-03-01",
+          "changeType": "MAJOR",
+          "breaking": true,
+          "changes": [
+            "Made partyId nullable to support batch pre-composed document events where party identity is resolved via journal or embedded AFP addressing; added batchId field for batch correlation"
+          ]
+        },
+        {
+          "version": "3.0.0",
+          "date": "2026-03-01",
+          "changeType": "MAJOR",
+          "breaking": true,
+          "changes": [
+            "Added mandatory workloadId field for volume attribution, SLA tracking, and billing against registered Workloads"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.events.CommunicationEventResponse": {
+      "file": "schemas/events/CommunicationEventResponse.avsc",
+      "currentVersion": "2.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        },
+        {
+          "version": "2.0.0",
+          "date": "2026-03-01",
+          "changeType": "MAJOR",
+          "breaking": true,
+          "changes": [
+            "Added mandatory workloadId field propagated from the originating CommunicationEvent for workload-level delivery tracking and SLA reporting"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.CurrentAccountStatementPayload": {
+      "file": "schemas/payloads/statements/CurrentAccountStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.CreditCardStatementPayload": {
+      "file": "schemas/payloads/statements/CreditCardStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.MortgageStatementPayload": {
+      "file": "schemas/payloads/statements/MortgageStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.LoanStatementPayload": {
+      "file": "schemas/payloads/statements/LoanStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.InvestmentStatementPayload": {
+      "file": "schemas/payloads/statements/InvestmentStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.PensionStatementPayload": {
+      "file": "schemas/payloads/statements/PensionStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.statements.CommercialStatementPayload": {
+      "file": "schemas/payloads/statements/CommercialStatementPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.letters.BankLetterPayload": {
+      "file": "schemas/payloads/letters/BankLetterPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.letters.InterestRateChangeLetterPayload": {
+      "file": "schemas/payloads/letters/InterestRateChangeLetterPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.emails.InterestRateChangeEmailPayload": {
+      "file": "schemas/payloads/emails/InterestRateChangeEmailPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.sms.FraudNotificationSmsPayload": {
+      "file": "schemas/payloads/sms/FraudNotificationSmsPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.payloads.push.PaymentPushNotificationPayload": {
+      "file": "schemas/payloads/push/PaymentPushNotificationPayload.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    },
+    "com.bank.schemas.channels.AutoChannelDispatch": {
+      "file": "schemas/channels/AutoChannelDispatch.avsc",
+      "currentVersion": "1.0.0",
+      "compatibility": "BACKWARD",
+      "status": "ACTIVE",
+      "initialRelease": "2026-03-01",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-03-01",
+          "changeType": "INITIAL",
+          "breaking": false,
+          "changes": [
+            "Initial schema definition"
+          ]
+        }
+      ]
+    }
+  }
+}

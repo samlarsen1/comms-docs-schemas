@@ -1,0 +1,120 @@
+{
+  "_comment": "Example: Fraud Alert AUTO cascade with URGENT priority. Customer P-002 has no mobile number registered (SMS not available) and push token expired. Cascade: SMS -> PUSH (skipped: no token) -> EMAIL. EMAIL succeeds. Card blocked is flagged in payload. This demonstrates a cascade where the first two preferred channels fail and the third succeeds.",
+
+  "communicationEvent": {
+    "eventId": "evt-fraud-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "eventType": "FRAUD_ALERT",
+    "schemaVersion": "1.0.0",
+    "eventTimestamp": 1735732800000,
+    "correlationId": "fraud-case-FC-20250101-00492",
+    "causationId": "fraud-engine-rule-SUSPICIOUS_TXN_001",
+    "idempotencyKey": "fraud-alert-P-002-ACC-CARD-5678-FC-00492",
+    "sourceSystem": {
+      "systemId": "FRAUD_ENGINE",
+      "systemName": "Real-Time Fraud Detection Engine",
+      "systemVersion": "v3.1.0",
+      "environment": "PRODUCTION",
+      "upstreamReference": "FC-20250101-00492"
+    },
+    "channel": "AUTO",
+    "priority": "URGENT",
+    "partyId": "P-002-SARAH-JONES",
+    "accountId": "ACC-CREDIT-CARD-5678",
+    "productId": "PROD-PLATINUM-CREDIT-CARD",
+    "productHoldingId": "HOLD-P002-CC-5678",
+    "templateId": null,
+    "templateCode": null,
+    "scheduledFor": null,
+    "expiresAt": 1735736400000,
+    "payload": {
+      "com.bank.schemas.payloads.sms.FraudNotificationSmsPayload": {
+        "notificationId": "notif-fraud-P002-CC5678-20250101",
+        "partyId": "P-002-SARAH-JONES",
+        "accountId": "ACC-CREDIT-CARD-5678",
+        "maskedAccountNumber": "...5678",
+        "fraudAlertType": "SUSPICIOUS_TRANSACTION",
+        "suspiciousTransactionAmount": {
+          "amount": "849.99",
+          "currency": "GBP"
+        },
+        "suspiciousMerchantName": "UNKNOWN MERCHANT MADRID",
+        "suspiciousTransactionDateTime": 1735732500000,
+        "messageBody": "FIRSTNATIONAL: Suspicious txn GBP849.99 at UNKNOWN MERCHANT MADRID on ...5678. Card blocked. Call 0800 456 7890 quoting FA-00492.",
+        "referenceCode": "FA-00492",
+        "bankContactNumber": "0800 456 7890",
+        "actionRequired": "CALL_US",
+        "isUrgent": true,
+        "cardBlocked": true
+      }
+    },
+    "metadata": {
+      "fraudCaseId": "FC-20250101-00492",
+      "riskScore": "0.97",
+      "ruleTriggered": "OVERSEAS_HIGH_VALUE_CARD_NOT_PRESENT",
+      "cardBlocked": "true"
+    }
+  },
+
+  "autoChannelDispatch": {
+    "dispatchId": "disp-fraud-b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "originalEventId": "evt-fraud-a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "correlationId": "fraud-case-FC-20250101-00492",
+    "partyId": "P-002-SARAH-JONES",
+    "eventType": "FRAUD_ALERT",
+    "payloadType": "com.bank.schemas.payloads.sms.FraudNotificationSmsPayload",
+    "cascadeConfig": {
+      "stopOnFirstSuccess": true,
+      "respectCustomerPreferences": true,
+      "fallbackChannelOrder": ["SMS", "PUSH", "EMAIL"],
+      "requireTemplateMatch": true,
+      "maxCascadeDepth": 3,
+      "retryAttemptsPerChannel": 1,
+      "retryDelaySeconds": 10,
+      "skipOptedOutChannels": false
+    },
+
+    "_comment_preferences": "FRAUD_ALERT preferences: preferredChannelOrder=[SMS, PUSH, EMAIL]. SMS consent=true but no mobile number registered. PUSH consent=true but device token expired 90 days ago. EMAIL consent=true.",
+    "resolvedChannelOrder": ["SMS", "PUSH", "EMAIL"],
+
+    "channelAttempts": [
+      {
+        "attemptSequence": 1,
+        "channel": "SMS",
+        "templateId": "tmpl-sms-fraud-alert-en-gb",
+        "templateCode": "FRAUD_ALERT_SMS_EN_GB",
+        "skipReason": null,
+        "attemptTimestamp": 1735732815000,
+        "status": "FAILED",
+        "statusDetail": "No mobile number registered on party profile. Cannot deliver SMS.",
+        "responseEventId": "resp-fraud-sms-fail-001"
+      },
+      {
+        "attemptSequence": 2,
+        "channel": "PUSH",
+        "templateId": "tmpl-push-fraud-alert-en-gb",
+        "templateCode": "FRAUD_ALERT_PUSH_EN_GB",
+        "skipReason": null,
+        "attemptTimestamp": 1735732825000,
+        "status": "FAILED",
+        "statusDetail": "Push token expired. Last active 2024-10-01. Cannot deliver push notification.",
+        "responseEventId": "resp-fraud-push-fail-001"
+      },
+      {
+        "attemptSequence": 3,
+        "channel": "EMAIL",
+        "_comment": "Template FRAUD_ALERT_EMAIL_EN_GB found - supports FraudNotificationSmsPayload rendered as email. Customer email: s.jones@example.com",
+        "templateId": "tmpl-email-fraud-alert-en-gb",
+        "templateCode": "FRAUD_ALERT_EMAIL_EN_GB",
+        "skipReason": null,
+        "attemptTimestamp": 1735732835000,
+        "status": "SENT",
+        "statusDetail": "Email accepted by SendGrid for delivery. Message-ID: <20250101131355.fraud492@mail.bank.co.uk>",
+        "responseEventId": "resp-fraud-email-sent-001"
+      }
+    ],
+    "finalStatus": "SENT",
+    "successfulChannel": "EMAIL",
+    "dispatchStartTimestamp": 1735732810000,
+    "dispatchEndTimestamp": 1735732836000
+  }
+}

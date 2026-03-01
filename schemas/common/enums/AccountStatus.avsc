@@ -1,0 +1,19 @@
+{
+  "type": "enum",
+  "name": "AccountStatus",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Account lifecycle status aligned with UK Open Banking OBAccountStatus1Code.",
+  "symbols": [
+    "ENABLED",
+    "DISABLED",
+    "DELETED",
+    "PENDING",
+    "DORMANT",
+    "SUSPENDED",
+    "PENDING_CLOSURE",
+    "CLOSED"
+  ]
+}

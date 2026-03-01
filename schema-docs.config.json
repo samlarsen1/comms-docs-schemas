@@ -1,0 +1,6 @@
+{
+  "outputDir": "../my-docs-site/docs/schemas",
+  "schemaBaseUrl": "/schemas",
+  "githubRepo": "https://github.com/samlarsen1/comms-docs-schemas",
+  "githubBranch": "main"
+}

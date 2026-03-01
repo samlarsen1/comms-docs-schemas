@@ -1,0 +1,18 @@
+{
+  "type": "enum",
+  "name": "TemplateStatus",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Lifecycle status of a communication template.",
+  "symbols": [
+    "DRAFT",
+    "REVIEW",
+    "APPROVED",
+    "ACTIVE",
+    "DEPRECATED",
+    "ARCHIVED",
+    "WITHDRAWN"
+  ]
+}

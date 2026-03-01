@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "name": "Client",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Registered upstream client application authorised to produce CommunicationEvents. Clients are onboarded and assigned an applicationId before they can publish to the communications platform. Each client may own one or more Workloads.",
+  "fields": [
+    {
+      "name": "clientId",
+      "type": "string",
+      "doc": "Bank-assigned UUID uniquely identifying this client registration."
+    },
+    {
+      "name": "applicationId",
+      "type": "string",
+      "validations": {
+        "pattern": "^AL\\d{6}$"
+      },
+      "doc": "Unique application code assigned at onboarding. Must match pattern ^AL\\d{6}$ — prefix 'AL' followed by exactly 6 digits, e.g. 'AL000123'. Validated at registration time; the communications platform will reject events from unregistered application IDs."
+    },
+    {
+      "name": "applicationName",
+      "type": "string",
+      "doc": "Human-readable name of the upstream application, e.g. 'Core Banking System', 'Fraud Engine', 'Card Processing'."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "type": "enum",
+  "name": "CreditDebitIndicator",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Indicates whether a monetary value represents a credit or debit. Aligned with UK Open Banking OBCreditDebitCode.",
+  "symbols": [
+    "CREDIT",
+    "DEBIT"
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "type": "record",
+  "name": "InterestRate",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Interest rate definition applicable to a product or account. Supports tiered, fixed, variable, and tracker rates. Aligned with UK Open Banking OBInterestRateType1Code and CMA Open Banking remedies. Rates are represented as decimal strings to avoid floating point issues.",
+  "fields": [
+    {
+      "name": "rateId",
+      "type": "string",
+      "doc": "Unique identifier for this interest rate definition."
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Reference to the Product this rate applies to."
+    },
+    {
+      "name": "accountId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to a specific Account if this is an account-level rate override. Null if product-level."
+    },
+    {
+      "name": "rateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "The structure of the interest rate."
+    },
+    {
+      "name": "direction",
+      "type": {
+        "type": "enum",
+        "name": "InterestDirection",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "Whether this rate applies to credit interest (earned by customer) or debit interest (charged to customer).",
+        "symbols": ["CREDIT", "DEBIT"]
+      },
+      "doc": "Whether this rate is for interest earned (CREDIT) or interest charged (DEBIT)."
+    },
+    {
+      "name": "nominalRatePercent",
+      "type": "string",
+      "doc": "Annual nominal interest rate as a decimal string, e.g. '3.75'."
+    },
+    {
+      "name": "aer",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Annual Equivalent Rate as a decimal string, accounting for compounding."
+    },
+    {
+      "name": "apr",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Annual Percentage Rate as a decimal string, for borrowing products including all costs."
+    },
+    {
+      "name": "baseRate",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "BaseRateReference",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Reference rate used for tracker or variable rates.",
+          "fields": [
+            {
+              "name": "rateName",
+              "type": "string",
+              "doc": "Name of the reference rate, e.g. 'Bank of England Base Rate', 'SONIA', 'LIBOR'."
+            },
+            {
+              "name": "spreadPercent",
+              "type": "string",
+              "doc": "Percentage spread above or below the base rate, e.g. '1.5' or '-0.25'."
+            },
+            {
+              "name": "currentBaseRatePercent",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Current value of the base rate at the time this record was created."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Reference rate details for variable or tracker rates."
+    },
+    {
+      "name": "tier",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "RateTier",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Balance tier for tiered interest rates.",
+          "fields": [
+            {
+              "name": "tierMinimum",
+              "type": ["null", "com.bank.schemas.common.Money"],
+              "default": null,
+              "doc": "Minimum balance for this rate tier to apply."
+            },
+            {
+              "name": "tierMaximum",
+              "type": ["null", "com.bank.schemas.common.Money"],
+              "default": null,
+              "doc": "Maximum balance for this rate tier. Null means no upper limit."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Tier boundaries if this is a tiered rate structure."
+    },
+    {
+      "name": "calculationMethod",
+      "type": {
+        "type": "enum",
+        "name": "InterestCalculationMethod",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["DAILY_BALANCE", "AVERAGE_DAILY_BALANCE", "MINIMUM_MONTHLY_BALANCE", "COMPOUND", "SIMPLE"]
+      },
+      "default": "DAILY_BALANCE",
+      "doc": "Method used to calculate interest."
+    },
+    {
+      "name": "conditions",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable conditions or eligibility criteria for this rate."
+    },
+    {
+      "name": "effectiveFrom",
+      "type": "string",
+      "doc": "ISO 8601 date from which this rate is effective."
+    },
+    {
+      "name": "effectiveTo",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date after which this rate is no longer effective. Null if open-ended."
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "type": "record",
+  "name": "InterestCharge",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A record of interest charged or credited to an account for a specific period. Used in statements and regulatory reporting. Aligned with ISO 20022 TransactionInterest4.",
+  "fields": [
+    {
+      "name": "chargeId",
+      "type": "string",
+      "doc": "Unique identifier for this interest charge record."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account this charge applies to."
+    },
+    {
+      "name": "rateId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the InterestRate definition applied."
+    },
+    {
+      "name": "direction",
+      "type": "com.bank.schemas.common.enums.InterestDirection",
+      "doc": "Whether this is interest earned (CREDIT) or interest charged (DEBIT)."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the interest calculation period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the interest calculation period."
+    },
+    {
+      "name": "averageBalance",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Average balance over the period used for interest calculation."
+    },
+    {
+      "name": "rateAppliedPercent",
+      "type": "string",
+      "doc": "Actual interest rate applied during this period as a decimal string."
+    },
+    {
+      "name": "rateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "Structure of the rate that was applied."
+    },
+    {
+      "name": "chargedAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total interest amount charged or credited."
+    },
+    {
+      "name": "taxDeducted",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Tax withheld at source, if applicable (e.g. basic rate tax on savings interest)."
+    },
+    {
+      "name": "postedDateTime",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the interest was posted to the account."
+    },
+    {
+      "name": "transactionId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Transaction record created when interest was posted."
+    }
+  ]
+}

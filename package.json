@@ -1,0 +1,15 @@
+{
+  "name": "comms-docs-schemas",
+  "version": "1.0.0",
+  "description": "Avro schemas for banking communications platform",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-schema-docs.mjs",
+    "validate": "node scripts/validate-schema-versions.mjs",
+    "validate:ci": "node scripts/validate-schema-versions.mjs --strict",
+    "bump": "node scripts/bump-version.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

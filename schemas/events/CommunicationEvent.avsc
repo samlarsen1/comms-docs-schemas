@@ -1,0 +1,205 @@
+{
+  "type": "record",
+  "name": "CommunicationEvent",
+  "namespace": "com.bank.schemas.events",
+  "version": "3.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Top-level event envelope for all bank communications. This is the root schema consumed by communication dispatch services, audit systems, and downstream handlers. Each event carries: (1) system metadata identifying the originating system and correlation chain; (2) routing metadata specifying channel and priority; (3) party and account context; (4) a discriminated union payload carrying the channel-specific communication data. When channel is AUTO, the auto-dispatcher resolves the actual delivery channel(s) at runtime by consulting CommunicationPreferences and Template availability.",
+  "fields": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "doc": "Globally unique UUID for this event instance. Used for idempotency and deduplication."
+    },
+    {
+      "name": "eventType",
+      "type": "com.bank.schemas.common.enums.CommunicationEventType",
+      "doc": "Classification of the communication event determining routing, template selection, and preference lookup."
+    },
+    {
+      "name": "schemaVersion",
+      "type": "string",
+      "doc": "Semantic version of this event schema, e.g. '1.0.0'. Consumers should validate compatibility."
+    },
+    {
+      "name": "eventTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this event was created by the source system."
+    },
+    {
+      "name": "correlationId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Correlation ID linking this event to a business transaction or user journey. Propagated across all services for distributed tracing."
+    },
+    {
+      "name": "causationId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ID of the upstream event or request that caused this event to be created."
+    },
+    {
+      "name": "idempotencyKey",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Idempotency key provided by the source system to prevent duplicate dispatch. The dispatcher will reject duplicate events with the same key within a TTL window."
+    },
+    {
+      "name": "sourceSystem",
+      "type": {
+        "type": "record",
+        "name": "SourceSystem",
+        "namespace": "com.bank.schemas.events",
+        "doc": "Identifies the upstream system that produced this communication event.",
+        "fields": [
+          {
+            "name": "systemId",
+            "type": "string",
+            "doc": "Unique identifier for the source system, e.g. 'CORE_BANKING', 'CARD_PROCESSING', 'FRAUD_ENGINE'."
+          },
+          {
+            "name": "systemName",
+            "type": "string",
+            "doc": "Human-readable name of the source system."
+          },
+          {
+            "name": "systemVersion",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "Version of the source system that produced this event."
+          },
+          {
+            "name": "environment",
+            "type": {
+              "type": "enum",
+              "name": "Environment",
+              "namespace": "com.bank.schemas.common.enums",
+              "symbols": ["PRODUCTION", "PRE_PRODUCTION", "UAT", "STAGING", "DEVELOPMENT", "DR"]
+            },
+            "doc": "Environment from which this event originated."
+          },
+          {
+            "name": "upstreamReference",
+            "type": ["null", "string"],
+            "default": null,
+            "doc": "Reference ID in the source system that triggered this event, e.g. a payment ID, fraud case ID, or batch job ID."
+          }
+        ]
+      },
+      "doc": "Metadata about the system that originated this event."
+    },
+    {
+      "name": "workloadId",
+      "type": "string",
+      "doc": "Reference to the Workload that produced this event. Mandatory on all events — used for volume attribution, SLA tracking, and billing. The workloadId must be registered under the client identified in sourceSystem.systemId."
+    },
+    {
+      "name": "channel",
+      "type": "com.bank.schemas.common.enums.ChannelType",
+      "doc": "Target delivery channel. Set to AUTO to enable automatic channel resolution based on customer preferences and template availability."
+    },
+    {
+      "name": "priority",
+      "type": "com.bank.schemas.common.enums.MessagePriority",
+      "default": "NORMAL",
+      "doc": "Delivery priority affecting queue position. URGENT bypasses standard queuing for time-sensitive communications such as fraud alerts."
+    },
+    {
+      "name": "partyId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Party who is the recipient of this communication. Null for batch pre-composed document events where individual party identity is resolved at delivery time via the payload's recipientAddressing (journal file or embedded AFP index)."
+    },
+    {
+      "name": "batchId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Identifier for the batch job that produced this event. Set when partyId is null (batch pre-composed document events). Used to correlate all CommunicationEvents and CommunicationEventResponses belonging to a single print/dispatch run."
+    },
+    {
+      "name": "accountId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Account this communication relates to, if applicable."
+    },
+    {
+      "name": "productId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the Product this communication relates to, if applicable."
+    },
+    {
+      "name": "productHoldingId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reference to the ProductHolding, used to resolve product-specific communication preferences."
+    },
+    {
+      "name": "templateId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Explicit template UUID to use for this communication. If null, the dispatcher resolves the template from eventType, channel, and customer language preference."
+    },
+    {
+      "name": "templateCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable template code as an alternative to templateId, e.g. 'STMT_CURRENT_ACCOUNT_EMAIL_EN_GB'."
+    },
+    {
+      "name": "scheduledFor",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      ],
+      "default": null,
+      "doc": "UTC timestamp to schedule delivery for. Null means deliver immediately."
+    },
+    {
+      "name": "expiresAt",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      ],
+      "default": null,
+      "doc": "UTC timestamp after which delivery should not be attempted. Used for time-sensitive communications."
+    },
+    {
+      "name": "payload",
+      "type": [
+        "com.bank.schemas.payloads.statements.CurrentAccountStatementPayload",
+        "com.bank.schemas.payloads.statements.CreditCardStatementPayload",
+        "com.bank.schemas.payloads.statements.MortgageStatementPayload",
+        "com.bank.schemas.payloads.statements.LoanStatementPayload",
+        "com.bank.schemas.payloads.statements.InvestmentStatementPayload",
+        "com.bank.schemas.payloads.statements.PensionStatementPayload",
+        "com.bank.schemas.payloads.statements.CommercialStatementPayload",
+        "com.bank.schemas.payloads.letters.BankLetterPayload",
+        "com.bank.schemas.payloads.letters.InterestRateChangeLetterPayload",
+        "com.bank.schemas.payloads.emails.InterestRateChangeEmailPayload",
+        "com.bank.schemas.payloads.sms.FraudNotificationSmsPayload",
+        "com.bank.schemas.payloads.push.PaymentPushNotificationPayload"
+      ],
+      "doc": "The communication payload. The type is discriminated by the fully-qualified Avro type name. For AUTO channel events, the same payload is used to render all attempted channels - templates must declare which payload types they support."
+    },
+    {
+      "name": "metadata",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Arbitrary key-value metadata for extensibility. Used for A/B testing flags, campaign IDs, regulatory codes, and other context that does not fit the standard fields."
+    }
+  ]
+}

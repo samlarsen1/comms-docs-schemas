@@ -1,0 +1,176 @@
+{
+  "type": "record",
+  "name": "MortgageStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a residential or buy-to-let mortgage annual or periodic statement. Aligned with FCA MCOB (Mortgage Conduct of Business) disclosure requirements and UK Finance mortgage statement standards.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the mortgage Account."
+    },
+    {
+      "name": "mortgageReference",
+      "type": "string",
+      "doc": "Bank's mortgage reference number."
+    },
+    {
+      "name": "accountHolderNames",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "Names of all mortgage holders (primary and joint)."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Mortgage product name, e.g. '2-Year Fixed Rate Mortgage'."
+    },
+    {
+      "name": "mortgageType",
+      "type": {
+        "type": "enum",
+        "name": "MortgageType",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["REPAYMENT", "INTEREST_ONLY", "PART_AND_PART", "OFFSET"]
+      },
+      "doc": "Repayment structure of this mortgage."
+    },
+    {
+      "name": "propertyAddress",
+      "type": "com.bank.schemas.common.Address",
+      "doc": "Address of the mortgaged property."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the statement period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the statement period."
+    },
+    {
+      "name": "originalMortgageAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Original mortgage advance amount."
+    },
+    {
+      "name": "outstandingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Outstanding mortgage balance at end of statement period."
+    },
+    {
+      "name": "currentInterestRatePercent",
+      "type": "string",
+      "doc": "Current annual interest rate as a decimal string."
+    },
+    {
+      "name": "interestRateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "Structure of the current interest rate."
+    },
+    {
+      "name": "rateReviewDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date when the current rate period ends and the rate may change."
+    },
+    {
+      "name": "svr",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Standard Variable Rate the mortgage will revert to after the deal period, as a decimal string."
+    },
+    {
+      "name": "monthlyPaymentAmount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Current monthly payment amount."
+    },
+    {
+      "name": "nextPaymentDate",
+      "type": "string",
+      "doc": "ISO 8601 date of the next scheduled payment."
+    },
+    {
+      "name": "remainingTermMonths",
+      "type": "int",
+      "doc": "Number of months remaining on the mortgage term."
+    },
+    {
+      "name": "totalPaidThisPeriod",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total amount paid during the statement period."
+    },
+    {
+      "name": "capitalRepaidThisPeriod",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Capital portion of payments made during the period."
+    },
+    {
+      "name": "interestChargedThisPeriod",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total interest charged during the statement period."
+    },
+    {
+      "name": "feesChargedThisPeriod",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total fees charged during the period."
+    },
+    {
+      "name": "overpaymentAllowanceRemaining",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Remaining overpayment allowance for the current year without incurring early repayment charges."
+    },
+    {
+      "name": "overpaymentsMadeThisPeriod",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total overpayments made during the period."
+    },
+    {
+      "name": "earlyRepaymentCharge",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Early repayment charge that would apply if the mortgage were redeemed today."
+    },
+    {
+      "name": "estimatedRedemptionFigure",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Estimated total amount required to fully redeem the mortgage today."
+    },
+    {
+      "name": "transactions",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.payloads.statements.StatementTransaction"
+      },
+      "default": [],
+      "doc": "Payment transactions during the statement period."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery."
+    }
+  ]
+}

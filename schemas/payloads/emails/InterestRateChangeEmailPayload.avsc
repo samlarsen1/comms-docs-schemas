@@ -1,0 +1,100 @@
+{
+  "type": "record",
+  "name": "InterestRateChangeEmailPayload",
+  "namespace": "com.bank.schemas.payloads.emails",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for an email notification of an interest rate change. Digital channel equivalent of InterestRateChangeLetterPayload. Omits postal address fields and includes email-specific fields for rendering.",
+  "fields": [
+    {
+      "name": "notificationId",
+      "type": "string",
+      "doc": "Unique identifier for this email notification instance."
+    },
+    {
+      "name": "referenceNumber",
+      "type": "string",
+      "doc": "Bank reference number for this notice."
+    },
+    {
+      "name": "recipientEmailAddress",
+      "type": "string",
+      "doc": "The email address this notification will be sent to. Must match a verified address on the customer's profile."
+    },
+    {
+      "name": "recipientName",
+      "type": "string",
+      "doc": "Recipient's preferred name for personalisation, e.g. 'John'."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the affected Account."
+    },
+    {
+      "name": "accountReference",
+      "type": "string",
+      "doc": "Displayable account reference or masked account number."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Name of the product whose rate is changing."
+    },
+    {
+      "name": "productType",
+      "type": "com.bank.schemas.common.enums.ProductType",
+      "doc": "Product type of the affected account."
+    },
+    {
+      "name": "rateChangeReason",
+      "type": "com.bank.schemas.common.enums.RateChangeReason",
+      "doc": "Reason for the interest rate change."
+    },
+    {
+      "name": "currentInterestRatePercent",
+      "type": "string",
+      "doc": "Current annual interest rate as a decimal string."
+    },
+    {
+      "name": "newInterestRatePercent",
+      "type": "string",
+      "doc": "New annual interest rate as a decimal string."
+    },
+    {
+      "name": "rateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "Structure of the new interest rate."
+    },
+    {
+      "name": "effectiveDate",
+      "type": "string",
+      "doc": "ISO 8601 date from which the new rate takes effect."
+    },
+    {
+      "name": "impactOnMonthlyPayment",
+      "type": ["null", "com.bank.schemas.payloads.letters.PaymentImpact"],
+      "default": null,
+      "doc": "Impact on monthly payments if applicable."
+    },
+    {
+      "name": "ctaUrl",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Call-to-action URL for the email, e.g. link to online banking to view account details."
+    },
+    {
+      "name": "ctaText",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Call-to-action button text, e.g. 'View your account'."
+    },
+    {
+      "name": "unsubscribeUrl",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URL for the customer to manage email preferences. Required for marketing communications."
+    }
+  ]
+}

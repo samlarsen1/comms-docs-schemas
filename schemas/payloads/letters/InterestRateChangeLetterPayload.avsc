@@ -1,0 +1,170 @@
+{
+  "type": "record",
+  "name": "InterestRateChangeLetterPayload",
+  "namespace": "com.bank.schemas.payloads.letters",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a letter notifying a customer of a change to their interest rate. Applicable to mortgages, savings accounts, loans, and credit products. Regulatory requirement under FCA MCOB, CONC, and BCOBS. Delivered via POST or DOCUMENT channel.",
+  "fields": [
+    {
+      "name": "letterId",
+      "type": "string",
+      "doc": "Unique identifier for this letter instance."
+    },
+    {
+      "name": "referenceNumber",
+      "type": "string",
+      "doc": "Bank reference number for this notice."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "doc": "ISO 8601 date printed on the letter."
+    },
+    {
+      "name": "addressedTo",
+      "type": "string",
+      "doc": "Name of the recipient as it will appear on the letter."
+    },
+    {
+      "name": "salutation",
+      "type": "string",
+      "doc": "Letter salutation, e.g. 'Dear Mr Johnson'."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": "com.bank.schemas.common.Address",
+      "doc": "Recipient's postal address."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the affected Account."
+    },
+    {
+      "name": "accountReference",
+      "type": "string",
+      "doc": "Displayable account reference or masked account number."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Name of the product whose rate is changing."
+    },
+    {
+      "name": "productType",
+      "type": "com.bank.schemas.common.enums.ProductType",
+      "doc": "Product type of the affected account."
+    },
+    {
+      "name": "rateChangeReason",
+      "type": {
+        "type": "enum",
+        "name": "RateChangeReason",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": [
+          "BANK_OF_ENGLAND_BASE_RATE_CHANGE",
+          "PRODUCT_RATE_REVIEW",
+          "END_OF_INTRODUCTORY_PERIOD",
+          "END_OF_FIXED_RATE_PERIOD",
+          "SONIA_CHANGE",
+          "COMMERCIAL_DECISION",
+          "REGULATORY_REQUIREMENT"
+        ]
+      },
+      "doc": "Reason for the interest rate change."
+    },
+    {
+      "name": "currentInterestRatePercent",
+      "type": "string",
+      "doc": "Current annual interest rate as a decimal string, e.g. '4.25'."
+    },
+    {
+      "name": "newInterestRatePercent",
+      "type": "string",
+      "doc": "New annual interest rate as a decimal string, e.g. '4.50'."
+    },
+    {
+      "name": "rateType",
+      "type": "com.bank.schemas.common.enums.InterestRateType",
+      "doc": "Structure of the new interest rate."
+    },
+    {
+      "name": "baseRateName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the reference rate if applicable, e.g. 'Bank of England Base Rate'."
+    },
+    {
+      "name": "baseRateCurrentPercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Current value of the base rate as a decimal string."
+    },
+    {
+      "name": "effectiveDate",
+      "type": "string",
+      "doc": "ISO 8601 date from which the new rate takes effect."
+    },
+    {
+      "name": "noticePeriodDays",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Number of days notice given before the rate change takes effect."
+    },
+    {
+      "name": "impactOnMonthlyPayment",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "PaymentImpact",
+          "namespace": "com.bank.schemas.payloads.letters",
+          "doc": "Impact of the rate change on the customer's regular payment.",
+          "fields": [
+            {
+              "name": "currentMonthlyPayment",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Current monthly payment amount."
+            },
+            {
+              "name": "newMonthlyPayment",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "New monthly payment amount after the rate change."
+            },
+            {
+              "name": "monthlyChangeAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Change in monthly payment (positive = increase, negative = decrease)."
+            },
+            {
+              "name": "annualChangeAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Annualised change in payments."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Impact on the customer's payments, if applicable (e.g. for mortgages and loans)."
+    },
+    {
+      "name": "additionalBodyText",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Additional body text for template to include, e.g. options available to the customer."
+    },
+    {
+      "name": "contactPhoneNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Phone number for customer queries about this rate change."
+    },
+    {
+      "name": "signatoryName",
+      "type": "string",
+      "doc": "Name or team signing the letter, e.g. 'Mortgage Servicing Team'."
+    }
+  ]
+}

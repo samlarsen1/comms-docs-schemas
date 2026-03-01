@@ -1,0 +1,100 @@
+{
+  "type": "record",
+  "name": "Fees",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Fee definition applicable to a product. Aligned with UK Open Banking OBFeeChargeDetail1 and extended for commercial and investment products.",
+  "fields": [
+    {
+      "name": "feeId",
+      "type": "string",
+      "doc": "Unique identifier for this fee definition."
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Reference to the Product this fee applies to."
+    },
+    {
+      "name": "feeType",
+      "type": "com.bank.schemas.common.enums.FeeType",
+      "doc": "Classification of this fee."
+    },
+    {
+      "name": "feeCategory",
+      "type": {
+        "type": "enum",
+        "name": "FeeCategory",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["SERVICING", "PRODUCT", "TRANSACTION", "BORROWING", "FOREIGN_EXCHANGE", "REGULATORY"]
+      },
+      "doc": "High-level category of the fee."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Display name of the fee."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Detailed description of when and how this fee is applied."
+    },
+    {
+      "name": "fixedAmount",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Fixed fee amount. Null for percentage-based fees."
+    },
+    {
+      "name": "ratePercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Fee as a percentage of the transaction or balance, e.g. '2.5'. Null for fixed-amount fees."
+    },
+    {
+      "name": "minimumAmount",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Minimum fee amount when using a percentage rate."
+    },
+    {
+      "name": "maximumAmount",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Maximum fee amount when using a percentage rate."
+    },
+    {
+      "name": "calculationFrequency",
+      "type": ["null", "com.bank.schemas.common.enums.StatementFrequency"],
+      "default": null,
+      "doc": "How frequently the fee is calculated."
+    },
+    {
+      "name": "applicationFrequency",
+      "type": ["null", "com.bank.schemas.common.enums.StatementFrequency"],
+      "default": null,
+      "doc": "How frequently the fee is charged to the account."
+    },
+    {
+      "name": "feeNotes",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Additional notes or conditions applicable to this fee."
+    },
+    {
+      "name": "effectiveFrom",
+      "type": "string",
+      "doc": "ISO 8601 date from which this fee definition is effective: YYYY-MM-DD."
+    },
+    {
+      "name": "effectiveTo",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date after which this fee definition is no longer effective. Null if open-ended."
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "_comment": "Example: Interest Rate Change AUTO cascade event. The source system (CORE_BANKING) publishes this event with channel=AUTO. The dispatcher: (1) loads party P-001's CommunicationPreferences, (2) finds INTEREST_RATE_CHANGE preferences for MORTGAGE with preferredChannelOrder=[EMAIL, POST], (3) checks EMAIL channel consent = true and template 'RATE_CHG_MORTGAGE_EMAIL_EN_GB' supports InterestRateChangeEmailPayload, (4) delivers via EMAIL, (5) logs success and stops cascade. The letter payload version would be dispatched if email failed.",
+
+  "communicationEvent": {
+    "eventId": "evt-7f3a2b1c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+    "eventType": "INTEREST_RATE_CHANGE",
+    "schemaVersion": "1.0.0",
+    "eventTimestamp": 1735689600000,
+    "correlationId": "corr-boe-rate-change-2025-01-01-batch-001",
+    "causationId": "upstream-boe-rate-decision-2024-12-19",
+    "idempotencyKey": "rate-change-P-001-ACC-9876-2025-01-01",
+    "sourceSystem": {
+      "systemId": "CORE_BANKING",
+      "systemName": "Core Banking System",
+      "systemVersion": "v4.2.1",
+      "environment": "PRODUCTION",
+      "upstreamReference": "RATE_BATCH_JOB_2025_01_01_00001"
+    },
+    "channel": "AUTO",
+    "priority": "NORMAL",
+    "partyId": "P-001-JOHN-SMITH",
+    "accountId": "ACC-MORTGAGE-9876",
+    "productId": "PROD-2YR-FIXED-MORTGAGE",
+    "productHoldingId": "HOLD-P001-MORTGAGE-9876",
+    "templateId": null,
+    "templateCode": null,
+    "scheduledFor": null,
+    "expiresAt": 1736294400000,
+    "payload": {
+      "com.bank.schemas.payloads.letters.InterestRateChangeLetterPayload": {
+        "letterId": "LTR-RATE-P001-9876-20250101",
+        "referenceNumber": "RC-2025-001-9876",
+        "date": "2025-01-01",
+        "addressedTo": "Mr John Smith",
+        "salutation": "Dear Mr Smith",
+        "correspondenceAddress": {
+          "addressType": "CORRESPONDENCE",
+          "careOf": null,
+          "buildingName": null,
+          "buildingNumber": "42",
+          "subBuildingName": null,
+          "streetName": "Maple Avenue",
+          "addressLine1": "42 Maple Avenue",
+          "addressLine2": null,
+          "addressLine3": null,
+          "townName": "Oxford",
+          "county": "Oxfordshire",
+          "postCode": "OX1 4AB",
+          "country": "GB"
+        },
+        "accountId": "ACC-MORTGAGE-9876",
+        "accountReference": "...9876",
+        "productName": "2-Year Fixed Rate Mortgage",
+        "productType": "MORTGAGE",
+        "rateChangeReason": "BANK_OF_ENGLAND_BASE_RATE_CHANGE",
+        "currentInterestRatePercent": "5.49",
+        "newInterestRatePercent": "5.24",
+        "rateType": "TRACKER",
+        "baseRateName": "Bank of England Base Rate",
+        "baseRateCurrentPercent": "4.75",
+        "effectiveDate": "2025-02-01",
+        "noticePeriodDays": 31,
+        "impactOnMonthlyPayment": {
+          "currentMonthlyPayment": {
+            "amount": "1456.78",
+            "currency": "GBP"
+          },
+          "newMonthlyPayment": {
+            "amount": "1432.15",
+            "currency": "GBP"
+          },
+          "monthlyChangeAmount": {
+            "amount": "-24.63",
+            "currency": "GBP"
+          },
+          "annualChangeAmount": {
+            "amount": "-295.56",
+            "currency": "GBP"
+          }
+        },
+        "additionalBodyText": "You do not need to take any action. Your new payment amount will be collected automatically from your nominated bank account.",
+        "contactPhoneNumber": "0800 123 4567",
+        "signatoryName": "Mortgage Servicing Team"
+      }
+    },
+    "metadata": {
+      "campaignId": "BOE_RATE_CHANGE_JAN_2025",
+      "batchId": "RATE_BATCH_JOB_2025_01_01",
+      "regulatoryRequired": "true"
+    }
+  },
+
+  "autoChannelDispatch": {
+    "dispatchId": "disp-3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+    "originalEventId": "evt-7f3a2b1c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
+    "correlationId": "corr-boe-rate-change-2025-01-01-batch-001",
+    "partyId": "P-001-JOHN-SMITH",
+    "eventType": "INTEREST_RATE_CHANGE",
+    "payloadType": "com.bank.schemas.payloads.letters.InterestRateChangeLetterPayload",
+    "cascadeConfig": {
+      "stopOnFirstSuccess": true,
+      "respectCustomerPreferences": true,
+      "fallbackChannelOrder": ["EMAIL", "POST"],
+      "requireTemplateMatch": true,
+      "maxCascadeDepth": 3,
+      "retryAttemptsPerChannel": 2,
+      "retryDelaySeconds": 60,
+      "skipOptedOutChannels": true
+    },
+
+    "_comment_preferences": "Customer preferences loaded: INTEREST_RATE_CHANGE + MORTGAGE -> preferredChannelOrder=[EMAIL, POST]. EMAIL consent=true. POST consent=true.",
+    "resolvedChannelOrder": ["EMAIL", "POST"],
+
+    "channelAttempts": [
+      {
+        "attemptSequence": 1,
+        "channel": "EMAIL",
+        "_comment": "Template RATE_CHG_MORTGAGE_EMAIL_EN_GB found - supports InterestRateChangeLetterPayload on EMAIL channel. Customer email confirmed: j.smith@example.com",
+        "templateId": "tmpl-email-rate-chg-mortgage-en-gb",
+        "templateCode": "RATE_CHG_MORTGAGE_EMAIL_EN_GB",
+        "skipReason": null,
+        "attemptTimestamp": 1735689720000,
+        "status": "DELIVERED",
+        "statusDetail": "Email delivered via SendGrid. Message-ID: <20250101120000.abc123@mail.bank.co.uk>",
+        "responseEventId": "resp-8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d"
+      },
+      {
+        "_comment": "POST channel not attempted because stopOnFirstSuccess=true and EMAIL succeeded.",
+        "attemptSequence": 2,
+        "channel": "POST",
+        "templateId": null,
+        "templateCode": null,
+        "skipReason": "CASCADE_STOPPED_ON_SUCCESS",
+        "attemptTimestamp": 1735689720001,
+        "status": "CANCELLED",
+        "statusDetail": "Cascade stopped after successful EMAIL delivery.",
+        "responseEventId": null
+      }
+    ],
+    "finalStatus": "DELIVERED",
+    "successfulChannel": "EMAIL",
+    "dispatchStartTimestamp": 1735689710000,
+    "dispatchEndTimestamp": 1735689721000
+  }
+}

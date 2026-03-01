@@ -1,0 +1,32 @@
+{
+  "type": "enum",
+  "name": "FeeType",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Classification of fee types. Aligned with UK Open Banking OBFeeType1Code.",
+  "symbols": [
+    "SERVICE_CHARGE_MONTHLY",
+    "SERVICE_CHARGE_ANNUAL",
+    "TRANSACTION_FEE",
+    "OVERDRAFT_DAILY_FEE",
+    "OVERDRAFT_MONTHLY_FEE",
+    "OVERDRAFT_INTEREST",
+    "UNARRANGED_OVERDRAFT_FEE",
+    "RETURNED_ITEM_FEE",
+    "CHAPS_FEE",
+    "INTERNATIONAL_TRANSFER_FEE",
+    "CASH_WITHDRAWAL_FEE",
+    "CARD_REPLACEMENT_FEE",
+    "ARRANGEMENT_FEE",
+    "EARLY_REPAYMENT_CHARGE",
+    "LATE_PAYMENT_FEE",
+    "VALUATION_FEE",
+    "LEGAL_FEE",
+    "ACCOUNT_CLOSURE_FEE",
+    "PAPER_STATEMENT_FEE",
+    "CURRENCY_CONVERSION_FEE",
+    "ANNUAL_FEE"
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "type": "record",
+  "name": "Party",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A party is any individual or organisation that has a relationship with the bank. Aligned with ISO 20022 PartyIdentification135 and UK Open Banking OBParty2. Inspired by Brazil Open Finance DadosCadastraisPF/PJ structures.",
+  "fields": [
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Bank-assigned UUID uniquely identifying this party across all systems."
+    },
+    {
+      "name": "partyType",
+      "type": "com.bank.schemas.common.enums.PartyType",
+      "doc": "Classification of the party as individual, organisation, etc."
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "PartyStatus",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": ["ACTIVE", "INACTIVE", "DECEASED", "BANKRUPT", "UNDER_REVIEW", "CLOSED"]
+      },
+      "doc": "Current lifecycle status of the party."
+    },
+    {
+      "name": "individualDetails",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "IndividualDetails",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Details specific to a natural person. Present when partyType is INDIVIDUAL or SOLE_TRADER.",
+          "fields": [
+            {
+              "name": "title",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Title/salutation, e.g. 'Mr', 'Mrs', 'Dr', 'Prof'."
+            },
+            {
+              "name": "firstName",
+              "type": "string",
+              "doc": "Legal first/given name."
+            },
+            {
+              "name": "middleName",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Middle name(s) or initials."
+            },
+            {
+              "name": "lastName",
+              "type": "string",
+              "doc": "Legal surname/family name."
+            },
+            {
+              "name": "preferredName",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Preferred or informal name for communications."
+            },
+            {
+              "name": "dateOfBirth",
+              "type": "string",
+              "doc": "Date of birth in ISO 8601 format: YYYY-MM-DD."
+            },
+            {
+              "name": "nationality",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 3166-1 alpha-2 country code of primary nationality."
+            },
+            {
+              "name": "countryOfResidence",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 3166-1 alpha-2 country code of current residence."
+            },
+            {
+              "name": "maritalStatus",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Marital status, e.g. 'SINGLE', 'MARRIED', 'CIVIL_PARTNERSHIP', 'DIVORCED', 'WIDOWED'."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Details for individual parties. Null for organisations."
+    },
+    {
+      "name": "organisationDetails",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "OrganisationDetails",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Details specific to a legal entity or company. Present when partyType is ORGANISATION, PARTNERSHIP, TRUST, or CHARITY.",
+          "fields": [
+            {
+              "name": "legalName",
+              "type": "string",
+              "doc": "Full registered legal name of the organisation."
+            },
+            {
+              "name": "tradingName",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Trading or operating name if different from legal name."
+            },
+            {
+              "name": "registrationNumber",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Company registration number, e.g. Companies House number."
+            },
+            {
+              "name": "dateOfIncorporation",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 8601 date of incorporation or establishment: YYYY-MM-DD."
+            },
+            {
+              "name": "countryOfIncorporation",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 3166-1 alpha-2 country code where incorporated."
+            },
+            {
+              "name": "sic",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Standard Industrial Classification (SIC) code."
+            },
+            {
+              "name": "lei",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Legal Entity Identifier (LEI) - 20 character ISO 17442 code."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Details for organisation parties. Null for individuals."
+    },
+    {
+      "name": "identifiers",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.common.Identifier"
+      },
+      "default": [],
+      "doc": "Formal identifiers for this party, e.g. NI number, passport, company number."
+    },
+    {
+      "name": "addresses",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.common.Address"
+      },
+      "default": [],
+      "doc": "Known addresses for this party."
+    },
+    {
+      "name": "contactDetails",
+      "type": "com.bank.schemas.common.ContactDetails",
+      "doc": "Contact methods for this party."
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this party record was created."
+    },
+    {
+      "name": "updatedAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when this party record was last updated."
+    }
+  ]
+}

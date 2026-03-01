@@ -1,0 +1,20 @@
+{
+  "type": "enum",
+  "name": "StatementFrequency",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Frequency at which statements or charges are generated or applied.",
+  "symbols": [
+    "DAILY",
+    "WEEKLY",
+    "FORTNIGHTLY",
+    "MONTHLY",
+    "QUARTERLY",
+    "SEMI_ANNUALLY",
+    "ANNUALLY",
+    "ON_DEMAND",
+    "PER_TRANSACTION"
+  ]
+}

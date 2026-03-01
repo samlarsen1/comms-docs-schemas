@@ -1,0 +1,22 @@
+{
+  "type": "enum",
+  "name": "InterestRateType",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Classification of interest rate structure. Aligned with UK Open Banking OBInterestRateType1Code.",
+  "symbols": [
+    "LINKED_BASE_RATE",
+    "GROSS",
+    "NET",
+    "AER",
+    "APR",
+    "FIXED",
+    "VARIABLE",
+    "TRACKER",
+    "DISCOUNT",
+    "CAPPED",
+    "STEPPED"
+  ]
+}

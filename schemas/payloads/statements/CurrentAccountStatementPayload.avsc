@@ -1,0 +1,195 @@
+{
+  "type": "record",
+  "name": "CurrentAccountStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a current account or basic bank account statement. Aligned with UK Open Banking OBReadStatement2 and CASS (Current Account Switch Service) statement data requirements.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account this statement covers."
+    },
+    {
+      "name": "sortCode",
+      "type": "string",
+      "doc": "Account sort code (6 digits)."
+    },
+    {
+      "name": "accountNumber",
+      "type": "string",
+      "doc": "Account number (8 digits)."
+    },
+    {
+      "name": "iban",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "IBAN if available."
+    },
+    {
+      "name": "accountHolderName",
+      "type": "string",
+      "doc": "Full name of the primary account holder as it appears on the account."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Product name as displayed to the customer, e.g. 'Premier Current Account'."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated: YYYY-MM-DD."
+    },
+    {
+      "name": "periodStartDate",
+      "type": "string",
+      "doc": "ISO 8601 start date of the statement period."
+    },
+    {
+      "name": "periodEndDate",
+      "type": "string",
+      "doc": "ISO 8601 end date of the statement period."
+    },
+    {
+      "name": "openingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Account balance at the start of the statement period."
+    },
+    {
+      "name": "closingBalance",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Account balance at the end of the statement period."
+    },
+    {
+      "name": "totalCredits",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total of all credit entries in the statement period."
+    },
+    {
+      "name": "totalDebits",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total of all debit entries in the statement period."
+    },
+    {
+      "name": "availableBalance",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Available balance including any arranged overdraft at statement date."
+    },
+    {
+      "name": "arrangedOverdraftLimit",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Agreed arranged overdraft limit."
+    },
+    {
+      "name": "arrangedOverdraftUsed",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Amount of arranged overdraft used during the period."
+    },
+    {
+      "name": "unarrangedOverdraftUsed",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Maximum unarranged overdraft amount used during the period."
+    },
+    {
+      "name": "interestCharged",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total overdraft or debit interest charged in the period."
+    },
+    {
+      "name": "interestEarned",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total credit interest earned in the period, if applicable."
+    },
+    {
+      "name": "feesCharged",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total fees charged in the period."
+    },
+    {
+      "name": "transactions",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "StatementTransaction",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "doc": "A summarised transaction entry for inclusion in a statement payload.",
+          "fields": [
+            {
+              "name": "transactionId",
+              "type": "string",
+              "doc": "Reference to the full Transaction record."
+            },
+            {
+              "name": "bookingDate",
+              "type": "string",
+              "doc": "ISO 8601 date the transaction was posted."
+            },
+            {
+              "name": "valueDate",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 8601 value date if different from booking date."
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "doc": "Transaction description as displayed on the statement."
+            },
+            {
+              "name": "creditDebitIndicator",
+              "type": "com.bank.schemas.common.enums.CreditDebitIndicator",
+              "doc": "Whether this entry credits or debits the account."
+            },
+            {
+              "name": "amount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Transaction amount."
+            },
+            {
+              "name": "runningBalance",
+              "type": ["null", "com.bank.schemas.common.Money"],
+              "default": null,
+              "doc": "Account balance after this transaction."
+            },
+            {
+              "name": "reference",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Payment reference."
+            },
+            {
+              "name": "category",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Spending category for analysis purposes, e.g. 'GROCERIES', 'TRANSPORT'."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "List of transactions in this statement period."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery. Required when channel is POST or DOCUMENT."
+    }
+  ]
+}

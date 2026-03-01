@@ -1,0 +1,209 @@
+{
+  "type": "record",
+  "name": "AutoChannelDispatch",
+  "namespace": "com.bank.schemas.channels",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Describes the outcome of an AUTO channel dispatch attempt. When a CommunicationEvent has channel=AUTO, the dispatcher resolves the delivery channel(s) at runtime by: (1) loading the customer's CommunicationPreferences for the given eventType and productType; (2) filtering channels where ChannelConsent is given; (3) for each preferred channel in order, checking whether an ACTIVE Template exists that supports the payload type and channel; (4) attempting delivery and cascading to the next channel on failure if cascade is enabled. This record captures the full resolution and attempt history for audit, debugging, and retry purposes.",
+  "fields": [
+    {
+      "name": "dispatchId",
+      "type": "string",
+      "doc": "Unique identifier for this auto dispatch attempt."
+    },
+    {
+      "name": "originalEventId",
+      "type": "string",
+      "doc": "The eventId of the originating CommunicationEvent with channel=AUTO."
+    },
+    {
+      "name": "correlationId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Propagated correlation ID."
+    },
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Party for whom channels are being resolved."
+    },
+    {
+      "name": "eventType",
+      "type": "com.bank.schemas.common.enums.CommunicationEventType",
+      "doc": "Communication event type being dispatched."
+    },
+    {
+      "name": "payloadType",
+      "type": "string",
+      "doc": "Fully qualified Avro type name of the payload, used for template compatibility matching, e.g. 'com.bank.schemas.payloads.statements.CurrentAccountStatementPayload'."
+    },
+    {
+      "name": "cascadeConfig",
+      "type": {
+        "type": "record",
+        "name": "CascadeConfig",
+        "namespace": "com.bank.schemas.channels",
+        "doc": "Configuration governing cascade behaviour for this AUTO dispatch.",
+        "fields": [
+          {
+            "name": "stopOnFirstSuccess",
+            "type": "boolean",
+            "default": true,
+            "doc": "If true, cascade stops after the first successful delivery. If false, the event is delivered to all available channels (e.g. for regulatory documents that must be delivered everywhere)."
+          },
+          {
+            "name": "respectCustomerPreferences",
+            "type": "boolean",
+            "default": true,
+            "doc": "If true, the customer's CommunicationPreferences preferredChannelOrder is used to determine cascade order. If false, the fallbackChannelOrder is used directly."
+          },
+          {
+            "name": "fallbackChannelOrder",
+            "type": {
+              "type": "array",
+              "items": "com.bank.schemas.common.enums.ChannelType"
+            },
+            "default": ["EMAIL", "SMS", "PUSH", "POST"],
+            "doc": "Channel order to use if respectCustomerPreferences is false, or if the customer has no preferences set for this event type. Must not contain AUTO."
+          },
+          {
+            "name": "requireTemplateMatch",
+            "type": "boolean",
+            "default": true,
+            "doc": "If true, a channel is skipped if no active template exists for the payload type on that channel. If false, dispatches without a template (raw payload delivery)."
+          },
+          {
+            "name": "maxCascadeDepth",
+            "type": "int",
+            "default": 3,
+            "doc": "Maximum number of channels to attempt in the cascade. Prevents excessive delivery attempts."
+          },
+          {
+            "name": "retryAttemptsPerChannel",
+            "type": "int",
+            "default": 2,
+            "doc": "Number of retry attempts per channel before cascading to the next."
+          },
+          {
+            "name": "retryDelaySeconds",
+            "type": "int",
+            "default": 60,
+            "doc": "Delay in seconds between retry attempts on the same channel."
+          },
+          {
+            "name": "skipOptedOutChannels",
+            "type": "boolean",
+            "default": true,
+            "doc": "If true, channels for which the customer has not given consent are silently skipped. If false, an OPTED_OUT attempt is logged."
+          }
+        ]
+      },
+      "doc": "Cascade behaviour configuration for this dispatch."
+    },
+    {
+      "name": "resolvedChannelOrder",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.common.enums.ChannelType"
+      },
+      "doc": "The final ordered list of channels the dispatcher resolved to attempt, after applying preferences, consent, and template availability checks."
+    },
+    {
+      "name": "channelAttempts",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "ChannelAttempt",
+          "namespace": "com.bank.schemas.channels",
+          "doc": "Result of a single delivery attempt on a specific channel.",
+          "fields": [
+            {
+              "name": "attemptSequence",
+              "type": "int",
+              "doc": "Sequence number of this attempt (1-based) in the cascade."
+            },
+            {
+              "name": "channel",
+              "type": "com.bank.schemas.common.enums.ChannelType",
+              "doc": "Channel on which delivery was attempted."
+            },
+            {
+              "name": "templateId",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Template UUID used for this attempt."
+            },
+            {
+              "name": "templateCode",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Template code used for this attempt."
+            },
+            {
+              "name": "skipReason",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "If this channel was skipped without attempting delivery, the reason. E.g. 'NO_TEMPLATE', 'OPTED_OUT', 'NO_CONTACT_DETAIL', 'CONSENT_NOT_GIVEN'."
+            },
+            {
+              "name": "attemptTimestamp",
+              "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+              },
+              "doc": "UTC timestamp of this delivery attempt."
+            },
+            {
+              "name": "status",
+              "type": "com.bank.schemas.common.enums.MessageStatus",
+              "doc": "Status of this delivery attempt."
+            },
+            {
+              "name": "statusDetail",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Detail of the status, e.g. gateway error message."
+            },
+            {
+              "name": "responseEventId",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ID of the CommunicationEventResponse produced for this attempt."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Ordered list of channel delivery attempts made during the cascade."
+    },
+    {
+      "name": "finalStatus",
+      "type": "com.bank.schemas.common.enums.MessageStatus",
+      "doc": "Overall final status of the AUTO dispatch. DELIVERED if any channel succeeded. FAILED if all channels failed. OPTED_OUT if customer has no consented channels."
+    },
+    {
+      "name": "successfulChannel",
+      "type": ["null", "com.bank.schemas.common.enums.ChannelType"],
+      "default": null,
+      "doc": "The channel on which delivery ultimately succeeded. Null if delivery failed on all channels."
+    },
+    {
+      "name": "dispatchStartTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the AUTO dispatch process started."
+    },
+    {
+      "name": "dispatchEndTimestamp",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the AUTO dispatch process completed."
+    }
+  ]
+}

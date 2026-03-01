@@ -1,0 +1,17 @@
+{
+  "type": "enum",
+  "name": "PartyType",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Classification of a party. Aligned with ISO 20022 PartyType3Code and UK Open Banking party types.",
+  "symbols": [
+    "INDIVIDUAL",
+    "ORGANISATION",
+    "SOLE_TRADER",
+    "PARTNERSHIP",
+    "TRUST",
+    "CHARITY"
+  ]
+}

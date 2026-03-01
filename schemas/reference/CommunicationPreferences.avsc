@@ -1,0 +1,177 @@
+{
+  "type": "record",
+  "name": "CommunicationPreferences",
+  "namespace": "com.bank.schemas.reference",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Customer communication preferences determining channel selection for each event type and product. Inspired by Brazil Open Finance Consentimento (consent) and Notificacoes (notification preferences) structures. The AUTO channel dispatcher consults this record when resolving which channels to attempt and in which order.",
+  "fields": [
+    {
+      "name": "preferencesId",
+      "type": "string",
+      "doc": "Unique identifier for this preferences record."
+    },
+    {
+      "name": "partyId",
+      "type": "string",
+      "doc": "Reference to the Party whose preferences these are."
+    },
+    {
+      "name": "version",
+      "type": "int",
+      "default": 1,
+      "doc": "Version number incremented on each update to support audit and optimistic locking."
+    },
+    {
+      "name": "globalOptOut",
+      "type": "boolean",
+      "default": false,
+      "doc": "If true, the customer has opted out of all non-mandatory communications. Regulatory, legal, and security communications are still delivered regardless."
+    },
+    {
+      "name": "channelConsents",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "ChannelConsent",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Consent and preference for a specific delivery channel. Aligned with ePrivacy Directive and PECR requirements.",
+          "fields": [
+            {
+              "name": "channel",
+              "type": "com.bank.schemas.common.enums.ChannelType",
+              "doc": "The delivery channel this consent record applies to. Must not be AUTO."
+            },
+            {
+              "name": "consentGiven",
+              "type": "boolean",
+              "doc": "Whether the customer has given consent to receive communications via this channel."
+            },
+            {
+              "name": "consentDateTime",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "logicalType": "timestamp-millis"
+                }
+              ],
+              "default": null,
+              "doc": "UTC timestamp when consent was given or last updated."
+            },
+            {
+              "name": "optOutDateTime",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "logicalType": "timestamp-millis"
+                }
+              ],
+              "default": null,
+              "doc": "UTC timestamp when the customer opted out. Null if currently consented."
+            },
+            {
+              "name": "consentSource",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "How consent was obtained, e.g. 'ONLINE_BANKING', 'BRANCH', 'PHONE', 'APP'."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Per-channel consent records."
+    },
+    {
+      "name": "eventTypePreferences",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "EventTypePreference",
+          "namespace": "com.bank.schemas.reference",
+          "doc": "Customer's preferred delivery channel(s) for a specific communication event type, optionally scoped to a product type. The AUTO dispatcher uses preferredChannelOrder to determine cascade sequence.",
+          "fields": [
+            {
+              "name": "eventType",
+              "type": "com.bank.schemas.common.enums.CommunicationEventType",
+              "doc": "The communication event type this preference applies to."
+            },
+            {
+              "name": "productType",
+              "type": ["null", "com.bank.schemas.common.enums.ProductType"],
+              "default": null,
+              "doc": "Optional product type scoping. Null means this preference applies to all product types for the given event type."
+            },
+            {
+              "name": "accountId",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Optional account-level scoping. Null means this preference applies across all accounts."
+            },
+            {
+              "name": "preferredChannelOrder",
+              "type": {
+                "type": "array",
+                "items": "com.bank.schemas.common.enums.ChannelType"
+              },
+              "doc": "Ordered list of preferred channels. The AUTO dispatcher attempts channels in this order, stopping on first successful delivery (unless configured otherwise). Must not contain AUTO."
+            },
+            {
+              "name": "suppressIfNoTemplate",
+              "type": "boolean",
+              "default": true,
+              "doc": "If true and no template exists for a preferred channel, the dispatcher moves to the next channel. If false, delivery fails if the first-choice channel has no template."
+            },
+            {
+              "name": "statementFormat",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Preferred statement format for STATEMENT events, e.g. 'PAPER', 'ELECTRONIC', 'BOTH'."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Per-event-type channel preferences."
+    },
+    {
+      "name": "paperlessEnabled",
+      "type": "boolean",
+      "default": false,
+      "doc": "Whether the customer has enrolled in paperless communications. Affects statement and letter delivery preferences."
+    },
+    {
+      "name": "language",
+      "type": "string",
+      "default": "en-GB",
+      "doc": "Preferred communication language as a BCP 47 tag, e.g. 'en-GB', 'cy-GB', 'pl-PL'."
+    },
+    {
+      "name": "accessibilityRequirements",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "Accessibility format requirements, e.g. 'LARGE_PRINT', 'BRAILLE', 'AUDIO'."
+    },
+    {
+      "name": "updatedAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when preferences were last updated."
+    },
+    {
+      "name": "updatedBy",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "System or user that last updated these preferences."
+    }
+  ]
+}

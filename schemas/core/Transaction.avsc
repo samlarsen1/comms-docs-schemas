@@ -1,0 +1,215 @@
+{
+  "type": "record",
+  "name": "Transaction",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A debit or credit entry on an account. Aligned with UK Open Banking OBTransaction6 and ISO 20022 ReportEntry10. Merchant data draws on ISO 8583 merchant category codes.",
+  "fields": [
+    {
+      "name": "transactionId",
+      "type": "string",
+      "doc": "Bank-assigned UUID uniquely identifying this transaction."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the Account this transaction belongs to."
+    },
+    {
+      "name": "creditDebitIndicator",
+      "type": "com.bank.schemas.common.enums.CreditDebitIndicator",
+      "doc": "Whether this transaction credits or debits the account."
+    },
+    {
+      "name": "status",
+      "type": "com.bank.schemas.common.enums.TransactionStatus",
+      "doc": "Processing status of the transaction."
+    },
+    {
+      "name": "bookingDateTime",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the transaction was posted to the account ledger."
+    },
+    {
+      "name": "valueDateTime",
+      "type": [
+        "null",
+        {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        }
+      ],
+      "default": null,
+      "doc": "UTC timestamp for interest and value calculation purposes. May differ from bookingDateTime."
+    },
+    {
+      "name": "amount",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Transaction amount in the account currency."
+    },
+    {
+      "name": "chargeAmount",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Fee or charge associated with this transaction, if applicable."
+    },
+    {
+      "name": "currencyExchange",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "CurrencyExchange",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Foreign currency exchange details where the transaction originated in a different currency. Aligned with ISO 20022 CurrencyExchange5.",
+          "fields": [
+            {
+              "name": "sourceCurrency",
+              "type": "string",
+              "doc": "ISO 4217 currency code the transaction originated in."
+            },
+            {
+              "name": "targetCurrency",
+              "type": "string",
+              "doc": "ISO 4217 currency code of the account."
+            },
+            {
+              "name": "exchangeRate",
+              "type": "string",
+              "doc": "Exchange rate applied as a decimal string."
+            },
+            {
+              "name": "originalAmount",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Original amount in the source currency."
+            },
+            {
+              "name": "quotedDateTime",
+              "type": [
+                "null",
+                {
+                  "type": "long",
+                  "logicalType": "timestamp-millis"
+                }
+              ],
+              "default": null,
+              "doc": "UTC timestamp when the exchange rate was quoted."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Foreign exchange details for cross-currency transactions."
+    },
+    {
+      "name": "bankTransactionCode",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "BankTransactionCode",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Standardised transaction classification. Aligned with ISO 20022 BankTransactionCodeStructure4.",
+          "fields": [
+            {
+              "name": "domain",
+              "type": "string",
+              "doc": "Domain code, e.g. 'Payments', 'Loans'."
+            },
+            {
+              "name": "family",
+              "type": "string",
+              "doc": "Family code within the domain."
+            },
+            {
+              "name": "subFamily",
+              "type": "string",
+              "doc": "Sub-family code within the family."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "ISO 20022 bank transaction code classification."
+    },
+    {
+      "name": "proprietaryCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Bank-proprietary transaction type code."
+    },
+    {
+      "name": "merchantDetails",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "MerchantDetails",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Details of the merchant where a card transaction occurred.",
+          "fields": [
+            {
+              "name": "merchantName",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Trading name of the merchant."
+            },
+            {
+              "name": "merchantCategoryCode",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "ISO 8583 Merchant Category Code (MCC), e.g. '5411' for grocery stores."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Merchant information for card-based transactions."
+    },
+    {
+      "name": "remittanceInformation",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "RemittanceInformation",
+          "namespace": "com.bank.schemas.core",
+          "doc": "Payment reference details. Aligned with ISO 20022 RemittanceInformation16.",
+          "fields": [
+            {
+              "name": "unstructured",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Free-text payment reference or description."
+            },
+            {
+              "name": "reference",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Structured payment reference, e.g. invoice number."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Payment reference or description."
+    },
+    {
+      "name": "transactionReference",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Bank's internal transaction reference number."
+    },
+    {
+      "name": "runningBalance",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Account balance immediately after this transaction was applied."
+    }
+  ]
+}

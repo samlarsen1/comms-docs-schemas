@@ -1,0 +1,179 @@
+{
+  "type": "record",
+  "name": "BankLetterPayload",
+  "namespace": "com.bank.schemas.payloads.letters",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a general bank letter. Used for account management communications, regulatory notices, product change notifications, and general correspondence. Content is structured to support both printed (POST/DOCUMENT) and digital (EMAIL/IN_APP) delivery.",
+  "fields": [
+    {
+      "name": "letterId",
+      "type": "string",
+      "doc": "Unique identifier for this letter instance."
+    },
+    {
+      "name": "letterType",
+      "type": {
+        "type": "enum",
+        "name": "BankLetterType",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "Classification of bank letter purpose.",
+        "symbols": [
+          "ACCOUNT_OPENING",
+          "ACCOUNT_CLOSURE_NOTICE",
+          "PRODUCT_CHANGE_NOTICE",
+          "TERMS_AND_CONDITIONS_UPDATE",
+          "REGULATORY_NOTICE",
+          "COMPLAINT_ACKNOWLEDGEMENT",
+          "COMPLAINT_FINAL_RESPONSE",
+          "GENERAL_CORRESPONDENCE",
+          "BEREAVEMENT_ACKNOWLEDGEMENT",
+          "POWER_OF_ATTORNEY_CONFIRMATION",
+          "DATA_SUBJECT_RESPONSE",
+          "SANCTIONS_NOTICE"
+        ]
+      },
+      "doc": "The purpose and type of this letter."
+    },
+    {
+      "name": "referenceNumber",
+      "type": "string",
+      "doc": "Bank reference number for this letter, for customer and staff use."
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "doc": "ISO 8601 date printed on the letter: YYYY-MM-DD."
+    },
+    {
+      "name": "addressedTo",
+      "type": "string",
+      "doc": "Name of the recipient as it will appear on the letter."
+    },
+    {
+      "name": "salutation",
+      "type": "string",
+      "doc": "Salutation line, e.g. 'Dear Mr Smith' or 'Dear Valued Customer'."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": "com.bank.schemas.common.Address",
+      "doc": "Recipient's postal address."
+    },
+    {
+      "name": "subject",
+      "type": "string",
+      "doc": "Letter subject line, e.g. 'Important changes to your account terms'."
+    },
+    {
+      "name": "accountReference",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Account or product reference the letter relates to."
+    },
+    {
+      "name": "sections",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "LetterSection",
+          "namespace": "com.bank.schemas.payloads.letters",
+          "doc": "A discrete section of the letter body. Allows structured content for template rendering.",
+          "fields": [
+            {
+              "name": "sectionTitle",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Optional section heading."
+            },
+            {
+              "name": "content",
+              "type": "string",
+              "doc": "Section body text. May contain template variable placeholders."
+            },
+            {
+              "name": "isBulletList",
+              "type": "boolean",
+              "default": false,
+              "doc": "Whether the content represents a bullet-pointed list."
+            }
+          ]
+        }
+      },
+      "doc": "Ordered list of letter body sections."
+    },
+    {
+      "name": "closingText",
+      "type": "string",
+      "doc": "Closing text, e.g. 'Yours sincerely'."
+    },
+    {
+      "name": "signatoryName",
+      "type": "string",
+      "doc": "Name of the signatory or team, e.g. 'Customer Relations Team'."
+    },
+    {
+      "name": "signatoryTitle",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Title of the signatory, e.g. 'Head of Customer Relations'."
+    },
+    {
+      "name": "enclosures",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "default": [],
+      "doc": "List of enclosures, e.g. ['Terms and Conditions booklet', 'Privacy Notice']."
+    },
+    {
+      "name": "responseRequired",
+      "type": "boolean",
+      "default": false,
+      "doc": "Whether the customer is required to respond or take action."
+    },
+    {
+      "name": "responseDeadlineDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date by which the customer must respond, if applicable."
+    },
+    {
+      "name": "contactDetails",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "LetterContactDetails",
+          "namespace": "com.bank.schemas.payloads.letters",
+          "doc": "Bank contact details for the customer to use in relation to this letter.",
+          "fields": [
+            {
+              "name": "phoneNumber",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Phone number the customer can call."
+            },
+            {
+              "name": "emailAddress",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Email address the customer can write to."
+            },
+            {
+              "name": "openingHours",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Opening hours for the contact channel."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Relevant bank contact details for this communication."
+    }
+  ]
+}

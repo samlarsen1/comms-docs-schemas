@@ -1,0 +1,100 @@
+{
+  "type": "record",
+  "name": "Account",
+  "namespace": "com.bank.schemas.core",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "A bank account instance held by a party. Aligned with UK Open Banking OBAccount6 and ISO 20022 CashAccount38. Includes UK-specific fields (sort code) and IBAN/BIC for international accounts.",
+  "fields": [
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Bank-assigned UUID uniquely identifying this account."
+    },
+    {
+      "name": "productId",
+      "type": "string",
+      "doc": "Reference to the Product this account is an instance of."
+    },
+    {
+      "name": "accountType",
+      "type": "com.bank.schemas.common.enums.ProductType",
+      "doc": "The type of account, derived from the product type."
+    },
+    {
+      "name": "subType",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Optional subtype for further classification, e.g. 'PACKAGED', 'STUDENT', 'GRADUATE'."
+    },
+    {
+      "name": "status",
+      "type": "com.bank.schemas.common.enums.AccountStatus",
+      "doc": "Current lifecycle status of the account."
+    },
+    {
+      "name": "currency",
+      "type": "string",
+      "doc": "ISO 4217 currency code for this account."
+    },
+    {
+      "name": "nickname",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Customer-defined nickname for the account."
+    },
+    {
+      "name": "sortCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "UK sort code (6 digits, no dashes), e.g. '123456'. Null for non-UK accounts."
+    },
+    {
+      "name": "accountNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "UK account number (8 digits). Null for non-account products such as ISAs without a direct debit facility."
+    },
+    {
+      "name": "iban",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "International Bank Account Number (IBAN) per ISO 13616."
+    },
+    {
+      "name": "bic",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Bank Identifier Code (BIC/SWIFT) per ISO 9362."
+    },
+    {
+      "name": "openingDate",
+      "type": "string",
+      "doc": "ISO 8601 date the account was opened: YYYY-MM-DD."
+    },
+    {
+      "name": "closingDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date the account was or will be closed. Null if open."
+    },
+    {
+      "name": "maturityDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 maturity date for fixed-term products such as bonds or fixed-rate mortgages."
+    },
+    {
+      "name": "primaryPartyId",
+      "type": "string",
+      "doc": "Reference to the primary Party who owns this account."
+    },
+    {
+      "name": "servicingBranchId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Identifier of the branch or servicing centre responsible for this account."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "type": "record",
+  "name": "Address",
+  "namespace": "com.bank.schemas.common",
+  "version": "1.0.0",
+  "compatibility": "FULL",
+  "status": "ACTIVE",
+  "doc": "Postal address aligned with ISO 20022 PostalAddress24 and UK Royal Mail addressing standards. Used for correspondence, registered, and residential address types.",
+  "fields": [
+    {
+      "name": "addressType",
+      "type": {
+        "type": "enum",
+        "name": "AddressType",
+        "namespace": "com.bank.schemas.common.enums",
+        "doc": "The purpose or classification of this address.",
+        "symbols": [
+          "CORRESPONDENCE",
+          "REGISTERED",
+          "RESIDENTIAL",
+          "BUSINESS",
+          "MAILING",
+          "DELIVERY",
+          "PREVIOUS"
+        ]
+      },
+      "doc": "The purpose of this address."
+    },
+    {
+      "name": "careOf",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Care-of name, e.g. 'c/o John Smith'."
+    },
+    {
+      "name": "buildingName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the building, e.g. 'Canary Wharf Tower'."
+    },
+    {
+      "name": "buildingNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "House or building number on the street."
+    },
+    {
+      "name": "subBuildingName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Flat, apartment, or unit identifier within a building."
+    },
+    {
+      "name": "streetName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the street or road."
+    },
+    {
+      "name": "addressLine1",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "First line of address (often building number + street name combined)."
+    },
+    {
+      "name": "addressLine2",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Second line of address."
+    },
+    {
+      "name": "addressLine3",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Third line of address."
+    },
+    {
+      "name": "townName",
+      "type": "string",
+      "doc": "Town, city, or locality name."
+    },
+    {
+      "name": "county",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "County, district, or state/province."
+    },
+    {
+      "name": "postCode",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Postal or ZIP code."
+    },
+    {
+      "name": "country",
+      "type": "string",
+      "doc": "ISO 3166-1 alpha-2 country code, e.g. 'GB', 'US', 'BR'."
+    }
+  ]
+}

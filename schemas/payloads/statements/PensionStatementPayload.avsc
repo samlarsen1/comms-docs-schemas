@@ -1,0 +1,217 @@
+{
+  "type": "record",
+  "name": "PensionStatementPayload",
+  "namespace": "com.bank.schemas.payloads.statements",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Payload for a pension annual benefit statement. Aligned with The Pensions Regulator requirements, FCA COBS 19 pension disclosure rules, and the Simpler Annual Statements standard (DWP 2022). Inspired by Brazil Open Finance Previdência structure.",
+  "fields": [
+    {
+      "name": "statementId",
+      "type": "string",
+      "doc": "Unique identifier for this statement."
+    },
+    {
+      "name": "accountId",
+      "type": "string",
+      "doc": "Reference to the pension Account."
+    },
+    {
+      "name": "memberReference",
+      "type": "string",
+      "doc": "Pension scheme member reference number."
+    },
+    {
+      "name": "memberName",
+      "type": "string",
+      "doc": "Full name of the pension scheme member."
+    },
+    {
+      "name": "productName",
+      "type": "string",
+      "doc": "Pension product name, e.g. 'Self-Invested Personal Pension (SIPP)'."
+    },
+    {
+      "name": "pensionType",
+      "type": {
+        "type": "enum",
+        "name": "PensionType",
+        "namespace": "com.bank.schemas.common.enums",
+        "symbols": [
+          "SIPP",
+          "PERSONAL_PENSION",
+          "WORKPLACE_DC",
+          "WORKPLACE_DB",
+          "STAKEHOLDER",
+          "GROUP_PERSONAL_PENSION",
+          "RETIREMENT_ANNUITY"
+        ]
+      },
+      "doc": "Type of pension scheme."
+    },
+    {
+      "name": "statementDate",
+      "type": "string",
+      "doc": "ISO 8601 date the statement was generated."
+    },
+    {
+      "name": "taxYear",
+      "type": "string",
+      "doc": "Tax year this statement covers, e.g. '2024/25'."
+    },
+    {
+      "name": "targetRetirementDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "ISO 8601 date of the member's target retirement date."
+    },
+    {
+      "name": "fundValue",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total current value of the pension fund."
+    },
+    {
+      "name": "transferValue",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Cash equivalent transfer value (CETV) - the value that could be transferred to another provider."
+    },
+    {
+      "name": "memberContributionsThisYear",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total member contributions in the current tax year."
+    },
+    {
+      "name": "employerContributionsThisYear",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Total employer contributions in the current tax year, for workplace schemes."
+    },
+    {
+      "name": "taxReliefReceivedThisYear",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Government tax relief added to contributions in the current tax year."
+    },
+    {
+      "name": "lifetimeContributions",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total contributions made since scheme inception."
+    },
+    {
+      "name": "annualAllowanceUsedThisYear",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Amount of annual pension allowance used in the current tax year."
+    },
+    {
+      "name": "annualAllowanceRemaining",
+      "type": ["null", "com.bank.schemas.common.Money"],
+      "default": null,
+      "doc": "Remaining annual pension allowance for the current tax year."
+    },
+    {
+      "name": "lifetimeAllowanceUsedPercent",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Percentage of lifetime allowance used (if applicable under pre-2023 rules)."
+    },
+    {
+      "name": "totalChargesThisYear",
+      "type": "com.bank.schemas.common.Money",
+      "doc": "Total management charges and fees deducted in the tax year."
+    },
+    {
+      "name": "projectedRetirementIncome",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "RetirementIncomeProjection",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "doc": "Illustrative retirement income projection. These are estimates and not guaranteed.",
+          "fields": [
+            {
+              "name": "projectedFundAtRetirement",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Estimated fund value at target retirement date."
+            },
+            {
+              "name": "estimatedAnnualIncome",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Estimated annual income if fund used to purchase an annuity."
+            },
+            {
+              "name": "estimatedMonthlyIncome",
+              "type": "com.bank.schemas.common.Money",
+              "doc": "Estimated monthly income if fund used to purchase an annuity."
+            },
+            {
+              "name": "growthRateAssumptionPercent",
+              "type": "string",
+              "doc": "Annual growth rate assumption used for projection."
+            },
+            {
+              "name": "inflationAssumptionPercent",
+              "type": "string",
+              "doc": "Annual inflation assumption used for projection."
+            },
+            {
+              "name": "disclaimerText",
+              "type": "string",
+              "doc": "Regulatory disclaimer that projections are not guaranteed."
+            }
+          ]
+        }
+      ],
+      "default": null,
+      "doc": "Illustrative retirement income projections."
+    },
+    {
+      "name": "holdings",
+      "type": {
+        "type": "array",
+        "items": "com.bank.schemas.payloads.statements.InvestmentHolding"
+      },
+      "default": [],
+      "doc": "Current fund holdings within the pension."
+    },
+    {
+      "name": "nominatedBeneficiaries",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "name": "PensionBeneficiary",
+          "namespace": "com.bank.schemas.payloads.statements",
+          "fields": [
+            {
+              "name": "name",
+              "type": "string",
+              "doc": "Beneficiary name."
+            },
+            {
+              "name": "relationship",
+              "type": ["null", "string"],
+              "default": null,
+              "doc": "Relationship to member, e.g. 'Spouse', 'Child'."
+            },
+            {
+              "name": "sharePercent",
+              "type": "string",
+              "doc": "Percentage share of benefits nominated to this beneficiary."
+            }
+          ]
+        }
+      },
+      "default": [],
+      "doc": "Nominated beneficiaries on record."
+    },
+    {
+      "name": "correspondenceAddress",
+      "type": ["null", "com.bank.schemas.common.Address"],
+      "default": null,
+      "doc": "Address for printed statement delivery."
+    }
+  ]
+}

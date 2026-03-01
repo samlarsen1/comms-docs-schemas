@@ -1,0 +1,24 @@
+{
+  "type": "enum",
+  "name": "MessageStatus",
+  "namespace": "com.bank.schemas.common.enums",
+  "version": "1.0.0",
+  "compatibility": "BACKWARD",
+  "status": "ACTIVE",
+  "doc": "Lifecycle status of a communication message. Aligned with ISO 20022 status codes and extended for multi-channel delivery tracking.",
+  "symbols": [
+    "PENDING",
+    "QUEUED",
+    "DISPATCHED",
+    "SENT",
+    "DELIVERED",
+    "READ",
+    "FAILED",
+    "BOUNCED",
+    "EXPIRED",
+    "CANCELLED",
+    "OPTED_OUT",
+    "TEMPLATE_NOT_FOUND",
+    "CHANNEL_UNAVAILABLE"
+  ]
+}
