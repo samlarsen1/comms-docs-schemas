@@ -1,0 +1,9 @@
+#!/bin/sh
+echo "Validating schemas..."
+npm run validate
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "Schema validation failed. Commit blocked."
+  echo "Fix the errors above and try again, or run: npm run validate"
+  exit 1
+fi

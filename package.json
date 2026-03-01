@@ -4,6 +4,7 @@
   "description": "Avro schemas for banking communications platform",
   "type": "module",
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks",
     "generate": "node scripts/generate-schema-docs.mjs",
     "validate": "node scripts/validate-schema-versions.mjs",
     "validate:ci": "node scripts/validate-schema-versions.mjs --strict",
