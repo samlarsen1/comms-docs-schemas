@@ -169,11 +169,19 @@ Every `.avsc` file carries three top-level properties (valid Avro — parsers ig
 
 ### Generating Documentation
 
-Configure the output location in `schema-docs.config.json`:
+The generator targets [`comms-docs-demo`](https://github.com/samlarsen1/comms-docs-demo), which must be checked out as a sibling directory:
+
+```
+~/your-dir/
+  comms-docs-schemas/    ← this repo
+  comms-docs-demo/       ← docs site
+```
+
+Output location and GitHub link config are in `schema-docs.config.json`:
 
 ```json
 {
-  "outputDir": "../my-docs-site/docs/schemas",
+  "outputDir": "../comms-docs-demo/website/docs/schemas",
   "schemaBaseUrl": "/schemas",
   "githubRepo": "https://github.com/samlarsen1/comms-docs-schemas",
   "githubBranch": "main"
@@ -181,6 +189,16 @@ Configure the output location in `schema-docs.config.json`:
 ```
 
 `npm run generate` writes one MDX page per schema plus an `index.mdx` catalogue and `_category_.json` Docusaurus sidebar files, organised by namespace directory. Cross-reference links, nested type expansion, and changelog tables are generated automatically.
+
+After running the generator, commit the output in the docs repo:
+
+```bash
+# From comms-docs-demo/website
+npm run gen:schemas
+git add docs/schemas/
+git commit -m "chore: regenerate schema docs"
+git push
+```
 
 ---
 
